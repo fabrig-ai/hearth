@@ -174,7 +174,13 @@ fn rename_within(files: &Files, from: &str, to: &str) -> Result<(), Error> {
     let (_, to) = to.rsplit_once('/').expect("a path in layers/");
     let handle = files.open(files.store_root(), directory.as_bytes(), OpenHow::Directory)?;
     let result = files
-        .call(Ask::Rename { from_dir: handle, from: from.as_bytes().into(), to_dir: handle, to: to.as_bytes().into() })
+        .call(Ask::Rename {
+            from_dir: handle,
+            from: from.as_bytes().into(),
+            to_dir: handle,
+            to: to.as_bytes().into(),
+            no_replace: false,
+        })
         .and_then(|_| files.call(Ask::Sync { file: handle }));
     files.close(handle);
     result.map(|_| ())

@@ -124,6 +124,9 @@ impl Below {
                 let signal = match signal {
                     records::kernel::Signal::Kill => linux::Signal::Kill,
                     records::kernel::Signal::Terminate => linux::Signal::Terminate,
+                    records::kernel::Signal::Interrupt
+                    | records::kernel::Signal::Stop
+                    | records::kernel::Signal::Continue => unreachable!("the builder only terminates or kills tools"),
                 };
                 let to = match to {
                     records::kernel::Target::Child => linux::Target::Child,

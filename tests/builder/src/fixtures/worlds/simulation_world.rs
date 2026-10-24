@@ -206,7 +206,7 @@ pub fn tool_spans(trace: &[skein_sim::Entry], name: &[u8]) -> Vec<Duration> {
         {
             submissions.insert((entry.pid, op), entry.at);
         }
-        if let Event::Complete { op, result: Ok(Done::Spawned { pidfd }), .. } = entry.event
+        if let Event::Complete { op, result: Ok(Done::Spawned { pidfd, .. }), .. } = entry.event
             && let Some(started) = submissions.remove(&(entry.pid, op))
         {
             children.insert((entry.pid, pidfd), started);

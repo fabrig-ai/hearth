@@ -122,8 +122,8 @@ pub fn answer(behind: &mut Behind, ask: Ask) -> Result<Reply, Error> {
         Ask::Sync { file } => Op::Sync { file: behind.handle(file) },
         Ask::Stat { file } => Op::Stat { handle: behind.handle(file) },
         Ask::Lock { file } => Op::Lock { file: behind.handle(file) },
-        Ask::Rename { from_dir, from, to_dir, to } => {
-            Op::Rename { from_dir: behind.handle(from_dir), from, to_dir: behind.handle(to_dir), to }
+        Ask::Rename { from_dir, from, to_dir, to, no_replace } => {
+            Op::Rename { from_dir: behind.handle(from_dir), from, to_dir: behind.handle(to_dir), to, no_replace }
         }
         Ask::Remove { dir, name, directory } => Op::Remove { dir: behind.handle(dir), path: name, directory },
         Ask::MakeDirectory { dir, name, mode } => Op::MakeDirectory { dir: behind.handle(dir), path: name, mode },

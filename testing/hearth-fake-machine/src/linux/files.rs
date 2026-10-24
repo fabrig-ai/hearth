@@ -279,10 +279,22 @@ impl Machine {
             self.nodes.remove(&node);
         }
     }
-    fn rename(&mut self, pid: Pid, from_dir: Handle, from: &[u8], to_dir: Handle, to: &[u8]) -> Result<Reply, Refusal> {
+    fn rename(
+        &mut self,
+        pid: Pid,
+        from_dir: Handle,
+        from: &[u8],
+        to_dir: Handle,
+        to: &[u8],
+        no_replace: bool,
+    ) -> Result<Reply, Refusal> {
         let source = self.resolve(pid, At::Beneath(from_dir), from, How::PathNoFollow)?;
         let node = source.node.ok_or(Refusal::NotFound)?;
         let target = self.resolve(pid, At::Beneath(to_dir), to, How::PathNoFollow)?;
+        // Like skein's fake, refuse a taken target before permission and same-inode checks.
+        if no_replace && target.node.is_some() {
+            return Err(Refusal::Exists);
+        }
         self.removable(pid, &source)?;
         self.access(pid, target.parent, 3)?;
         if target.name.as_ref() == b"." {
@@ -404,7 +416,9 @@ impl Machine {
                 Ok(Reply::Done)
             }
             Op::Stat { handle } => Ok(Reply::Stat(self.inode(self.handle(pid, handle).node).facts)),
-            Op::Rename { from_dir, from, to_dir, to } => self.rename(pid, from_dir, &from, to_dir, &to),
+            Op::Rename { from_dir, from, to_dir, to, no_replace } => {
+                self.rename(pid, from_dir, &from, to_dir, &to, no_replace)
+            }
             Op::Remove { dir, path, directory } => {
                 let found = self.resolve(pid, At::Beneath(dir), &path, How::PathNoFollow)?;
                 let node = self.removable(pid, &found)?;

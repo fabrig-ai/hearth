@@ -53,7 +53,8 @@ fn a_beneath_rename_reaches_io_with_both_descriptors() {
             from_dir: fixtures::SOURCE_ROOT,
             from: bytes::copy_of(b"index"),
             to_dir: fixtures::OUTPUT,
-            to: bytes::copy_of(b"digest")
+            to: bytes::copy_of(b"digest"),
+            no_replace: false,
         }
     );
 }

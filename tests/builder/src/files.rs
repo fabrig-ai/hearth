@@ -168,12 +168,9 @@ impl Files {
                 Event::Synced { owner }
             }
             Request::Rename { owner, from_root, from, to_root, to } => {
-                self.call(Ask::Rename {
-                    from_dir: self.fd(from_root),
-                    from,
-                    to_dir: self.fd(to_root),
-                    to: to.clone(),
-                })?;
+                let from_dir = self.fd(from_root);
+                let to_dir = self.fd(to_root);
+                self.call(Ask::Rename { from_dir, from, to_dir, to: to.clone(), no_replace: false })?;
                 if let Some(Fault::CacheFileGone { sha256 }) = self.fault
                     && to.as_ref() == super::fixtures::hex_digest(sha256.0).as_bytes()
                 {
@@ -276,7 +273,13 @@ impl Files {
                 return Ok(Event::Conflict { owner, now });
             }
         }
-        self.call(Ask::Rename { from_dir: root, from: temporary.into(), to_dir: root, to: path.into() })?;
+        self.call(Ask::Rename {
+            from_dir: root,
+            from: temporary.into(),
+            to_dir: root,
+            to: path.into(),
+            no_replace: false,
+        })?;
         if let Err(error) = self.call(Ask::Sync { file: root }) {
             return Ok(Event::Failed { owner, error, committed: true, residue: None });
         }

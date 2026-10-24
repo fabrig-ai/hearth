@@ -101,7 +101,7 @@ pub enum Op {
     Truncate { file: Handle, length: u64 },
     Sync { file: Handle },
     Stat { handle: Handle },
-    Rename { from_dir: Handle, from: Box<[u8]>, to_dir: Handle, to: Box<[u8]> },
+    Rename { from_dir: Handle, from: Box<[u8]>, to_dir: Handle, to: Box<[u8]>, no_replace: bool },
     Remove { dir: Handle, path: Box<[u8]>, directory: bool },
     MakeDirectory { dir: Handle, path: Box<[u8]>, mode: u32 },
     List { dir: Handle, most: u32 },

@@ -70,13 +70,55 @@ fn a_rename_into_another_directory_needs_write_on_the_moved_directory() {
             fixtures::done(
                 &mut machine,
                 pid,
-                Op::Rename { from_dir: dir, from: b"from/moved".as_slice().into(), to_dir: dir, to: to.into() }
+                Op::Rename {
+                    from_dir: dir,
+                    from: b"from/moved".as_slice().into(),
+                    to_dir: dir,
+                    to: to.into(),
+                    no_replace: false,
+                }
             ),
             expected,
             "{to:?}"
         );
     }
 }
+#[test]
+fn a_no_replace_rename_refuses_a_taken_target_without_changes() {
+    use crate::behind::answer;
+    use skein_io::kernel::Error;
+    use skein_sim::Ask;
+
+    let mut behind = fixtures::behind();
+    behind.machine_mut().linux_mut().lay(&[
+        Item::file(b"/srv/store/source", 0o644, b"source"),
+        Item::file(b"/srv/store/taken", 0o644, b"target"),
+        Item::hard_link(b"/srv/store/alias", b"/srv/store/source"),
+        Item::directory(b"/srv/store/directory", 0o755),
+    ]);
+    let dir = fixtures::directory(&mut behind, b"/srv/store");
+    for to in [b"taken".as_slice(), b"source", b"alias", b"directory"] {
+        assert_eq!(
+            answer(
+                &mut behind,
+                Ask::Rename {
+                    from_dir: dir,
+                    from: b"source".as_slice().into(),
+                    to_dir: dir,
+                    to: to.into(),
+                    no_replace: true
+                }
+            ),
+            Err(Error::Exists),
+            "{to:?}"
+        );
+    }
+    assert_eq!(behind.machine().linux().contents(b"/srv/store/source"), Some(b"source".as_slice()));
+    assert_eq!(behind.machine().linux().contents(b"/srv/store/taken"), Some(b"target".as_slice()));
+    assert_eq!(behind.machine().linux().contents(b"/srv/store/alias"), Some(b"source".as_slice()));
+    assert_eq!(behind.machine().linux().facts(b"/srv/store/directory").unwrap().kind, Kind::Directory);
+}
+
 const LISTED: [(&[u8], Kind); 3] = [(b"b", Kind::File), (b"a", Kind::File), (b"c", Kind::File)];
 #[test]
 fn a_listing_comes_back_in_an_order_drawn_from_the_seed() {
@@ -175,6 +217,7 @@ fn a_hard_link_and_an_open_handle_share_contents_after_a_rename() {
                 from: b"file".as_slice().into(),
                 to_dir: dir,
                 to: b"renamed".as_slice().into(),
+                no_replace: false,
             },
         )
         .unwrap();
