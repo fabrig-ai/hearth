@@ -1,6 +1,6 @@
 # Agent guidance for hearth
 
-- **main moves only through skein's `land`,** which runs the gate,
+- **main moves only through agents' `land`,** which runs the gate,
   `scripts/check.sh`, and pushes to `origin`'s `main`
   (`docs/development/workflow.md`, section 1). Do not run the gate
   yourself before `land`. A change to Markdown files only lands with

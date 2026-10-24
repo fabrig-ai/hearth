@@ -43,7 +43,7 @@ if the new one fails.
   `testing-strategy.md` and `notes.md`.
 
 Before changing code, read [`AGENTS.md`](AGENTS.md). `main` moves only
-through skein's `land`, which runs the gate, `scripts/check.sh`.
+through agents' `land`, which runs the gate, `scripts/check.sh`.
 
 ## The family
 
