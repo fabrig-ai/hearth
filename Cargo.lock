@@ -71,6 +71,7 @@ dependencies = [
  "hearth-protocol-git",
  "hearth-service-builder",
  "libc",
+ "skein-fail-stop",
  "skein-io",
  "skein-lib",
  "skein-scratch",
@@ -485,6 +486,11 @@ dependencies = [
  "cpufeatures",
  "digest",
 ]
+
+[[package]]
+name = "skein-fail-stop"
+version = "0.0.0"
+source = "git+https://github.com/fabrig-dev/skein.git#eb8e5fcce495d7a5c0e000d0a47610dcae8e1bea"
 
 [[package]]
 name = "skein-heap"
