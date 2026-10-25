@@ -12,6 +12,7 @@ use skein_shell::{Clock, Config, Kernel};
 use std::{ffi::OsString, io::Write, process::ExitCode};
 
 fn main() -> ExitCode {
+    skein_fail_stop::install();
     let args: Vec<OsString> = std::env::args_os().skip(1).collect();
     let form = argv::form(&args);
     let xdg = std::env::var_os("XDG_CACHE_HOME");

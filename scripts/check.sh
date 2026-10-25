@@ -37,6 +37,8 @@ if ls tests/*/tests/fuzzy_*.rs >/dev/null 2>&1; then
     fuzzy_none=fail
 fi
 
+# skein's programming-model.md, 2: every binary installs the fail-stop hook first.
+step fail-stop python3 -I -B scripts/fail_stop.py
 step fmt cargo fmt --check
 step clippy cargo clippy --workspace --all-targets -- -D warnings
 # skein's testing-strategy.md, section 8: a test is a process.

@@ -20,6 +20,7 @@ libc = "0.2.186"
 hearth-service-builder = { path = "crates/hearth-service-builder" }
 hearth = { path = "crates/hearth" }
 skein-shell = { git = "https://github.com/fabrig-dev/skein.git" }
+skein-fail-stop = { git = "https://github.com/fabrig-dev/skein.git" }
 hearth-protocol-builder = { path = "crates/hearth-protocol-builder" }
 skein-sim = { git = "https://github.com/fabrig-dev/skein.git" }
 skein-io = { git = "https://github.com/fabrig-dev/skein.git" }
@@ -49,11 +50,19 @@ skein-lib = { git = "https://github.com/fabrig-dev/skein.git" }
 hearth-protocol-git = { path = "crates/hearth-protocol-git" }
 skein-json = { git = "https://github.com/fabrig-dev/skein.git" }
 
-# Panics are fail-stop and overflow traps, in every profile. (The test harness
-# needs unwinding, so cargo ignores `panic` for test targets.)
+# Panics are fail-stop and overflow traps, in every profile. Release aborts.
+# Dev unwinds, as the test harness needs, so that the binaries and the tests
+# share one build of each dependency; each binary's main installs
+# skein_fail_stop's hook first, which aborts on a panic before anything
+# unwinds (skein's programming-model.md, 2).
 [profile.dev]
-panic = "abort"
 overflow-checks = true
+
+# Dependencies carry no debug information in dev and test builds, which
+# halves the test executables; the workspace's own crates keep the line
+# tables that backtraces name.
+[profile.dev.package."*"]
+debug = false
 
 [profile.release]
 panic = "abort"
