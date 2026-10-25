@@ -4,8 +4,8 @@
   `scripts/check.sh`, and pushes to `origin`'s `main`
   (`docs/development/workflow.md`, section 1). Do not run the gate
   yourself before `land`. A change to Markdown files only lands with
-  `land --docs`. Run what compiles and the tests of the crates you touch
-  through `heavy`.
+  `land --docs`. Build and test through `heavy`, as agents'
+  `roles/implementer.md` says.
 - The default test suite (unit tests and the worlds' focused tests under
   `tests/`) takes at most 30 seconds (15 seconds before the user's doubling
   of 10-22, provisional); the fuzzy suite (the worlds' `tests/fuzzy_*.rs`,
@@ -21,8 +21,8 @@
   is from the design.
 - **hearth builds on skein alone,** and follows skein's foundation
   documents: `programming-model.md`, `testing-strategy.md` and
-  `notes.md`. Read them before writing code: the first two are rules,
-  and a departure needs its reason, stated in the design or the commit.
+  `notes.md`. Read the first two's section 1 before writing code: they
+  are rules, and a departure needs its reason, stated in the design or the commit.
   Citations use those file
   names and their sections. hearth depends on no crate of smith, jig or
   temper.
@@ -46,4 +46,4 @@
   `Cargo.toml`'s `[workspace.dependencies]`, with no `rev`, `branch` or
   `tag`: `Cargo.lock` pins it.
 - **Work on a branch in a worktree of your own,** never in the primary
-  checkout. `land` is the only push; do not push or publish otherwise.
+  checkout. Push only your own branch: `land` is the only push to `main`.
