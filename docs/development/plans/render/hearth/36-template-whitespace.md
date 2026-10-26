@@ -122,7 +122,7 @@ at 2; `{{ a +}}`, at 6),
 `char::is_whitespace` for every `char`). Expected texts are literals,
 checked once against MiniJinja 2.20.0 with 9.5's settings: one run for
 each expected text of these tests, in a scratch crate outside the
-repository (`heavy cargo run --offline`, after the first landing's `cargo
+repository (`cargo run --offline`, after the first landing's `cargo
 fetch`); the report lists the test names checked.
 ```rust
 // crates/hearth-protocol-template/src/tests/whitespace.rs
@@ -140,8 +140,7 @@ FF, U+00A0, U+3000 in text; 05's three inside tags), a marker on every
 delimiter, and raw bodies holding `{{`, `{%`, `{% endif %}` and an
 unclosed `{%endraw`. The reference strips with `str::trim_end_matches(
 char::is_whitespace)`, not the table.
-Proof: world; nothing calls `template::compile` until hearth 15. `heavy
-cargo nextest run -p hearth-template-world --profile fuzzy`, once, shows
+Proof: world; nothing calls `template::compile` until hearth 15. `cargo nextest run -p hearth-template-world --profile fuzzy`, once, shows
 every rule giving the reference's texts, and each refusal at its offset.
 Bound: 3 s.
 Don't: apply trim_blocks after `}}`, or lstrip_blocks before `{{`; strip
@@ -195,7 +194,7 @@ In the world, `generated_strings_interpolate_as_the_reference_reads_them`
 `cut_and_mutated_strings_interpolate_as_the_reference_reads_them` (2,000
 rounds, about 1 s, `assert_fell` with `STRING_KINDS`).
 Proof: world; nothing calls `interpolation::compile` until hearth 16.
-`heavy cargo nextest run -p hearth-template-world --profile fuzzy`, once,
+`cargo nextest run -p hearth-template-world --profile fuzzy`, once,
 shows generated strings, 5.2's examples' forms among them,
 read as the reference reads them. Bound: 2 s.
 Don't: allow statements; check a field's type (hearth 16).
@@ -230,8 +229,7 @@ over 1 MiB in a debug build pass the focused aim), the rest at `SHIPPED`.
 in the sweep's file, runs 500 rounds at tiny limits (`template` 64 to
 4,096, `statements` 1 to 8) with the shapes scaled, about 1.5 s: the
 file then takes about 4.5 s (06's 2 s, 36.2's 1 s and this), its Bound.
-Proof: world; nothing calls the crate until hearth 43.2 and 15. `heavy
-cargo nextest run -p hearth-template-world -E 'binary(memory)'`, once,
+Proof: world; nothing calls the crate until hearth 43.2 and 15. `cargo nextest run -p hearth-template-world -E 'binary(memory)'`, once,
 shows a template's and a string's compile at `SHIPPED` holding no more
 than their worst cases. Bound: 2 s.
 Don't: raise a limit or a ceiling to fit a test.
@@ -281,8 +279,8 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-36\.[1-3]'` prints 3.
-2. In a worktree of hearth at `origin/main`, `heavy cargo nextest run -p
-   hearth-protocol-template -p hearth-template-world` and `heavy cargo
+2. In a worktree of hearth at `origin/main`, `cargo nextest run -p
+   hearth-protocol-template -p hearth-template-world` and `cargo
    nextest run -p hearth-template-world --profile fuzzy` each pass, once.
 3. `git -C ~/src/rust/hearth grep -n 'pub fn compile' origin/main --
    crates/hearth-protocol-template/src ':!*/tests/*' ':!*/tests.rs' | wc -l`

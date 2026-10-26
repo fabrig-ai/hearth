@@ -114,10 +114,7 @@ session. Read at `f981746` on 2026-10-17.
   server; then `--profile browser`, whose filter is
   `(package(skein-browser-world) or package(skein-ui-web-tests)) and
   binary(/^browser_/)`, one thread (`.config/nextest.toml`).
-- **check.sh takes no argument, variable or filter.** `land --gate
-  COMMAND` runs `bash -c "$COMMAND"` from the repository's root
-  (`scripts/dev/land:23,65,74-75,196`); the gate's cache key includes the
-  command.
+- **check.sh takes no argument, variable or filter.**
 - `skein-ui-web-tests::browser_harness`
   `a_page_of_another_origin_is_opened_by_its_step`
   (`tests/ui-web/tests/browser_harness.rs:46`) fails on x1 with Chromium

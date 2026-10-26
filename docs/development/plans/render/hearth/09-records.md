@@ -141,8 +141,7 @@ count of `u64::MAX` in 9 bytes, a body ending inside a uint);
 `a_bytes_item_past_its_longest_is_long`.
 Proof: unit layer, no higher than the tests: nothing calls this machine
 until hearth 23 and 33, whose store io read and write `store.record` and
-cache files' records through it (31: resolutions). Run once: `heavy
-cargo nextest run -p hearth-protocol-tree -E
+cache files' records through it (31: resolutions). Run once: `cargo nextest run -p hearth-protocol-tree -E
 'test(a_framed_body_has_the_header_store_md_gives_byte_for_byte)'`; it shows
 a body framed byte for byte as 6.1 gives it. Bound: 0.02 s.
 Don't: build a tree or recurse; read a stream with demands; compute `H` (01.2
@@ -207,7 +206,7 @@ and `uint 1`, framed as kinds 1 and 5 by `frame_of`: `Unreadable::Record`);
 `writing_a_cache_file_past_a_limit_is_refused` (a `rendered` path of 4,097
 bytes).
 Proof: unit layer, for 09.1's reason; hearth 23 and 33 first write these
-kinds. Run once: `heavy cargo nextest run -p hearth-protocol-tree -E
+kinds. Run once: `cargo nextest run -p hearth-protocol-tree -E
 'test(a_store_record_encodes_its_fields_in_key_order_byte_for_byte)'`; it
 shows M1's `store.record` as 6.6 names it, keys in byte order, no `range`.
 Bound: 0.02 s.
@@ -262,7 +261,7 @@ architecture, a `suite` and a component of 257; each `Limit` naming its field) a
 its first 16 bytes are `6865617274680072 0004 0001 00000000`, the next 8 the
 length of the bytes after them).
 Proof: unit layer, for 09.1's reason; hearth 31 records resolutions and
-hearth 33's scan reads them. Run once: `heavy cargo nextest run -p
+hearth 33's scan reads them. Run once: `cargo nextest run -p
 hearth-protocol-tree -E
 'test(a_resolution_reads_back_as_it_was_written_inputs_included)'`; it shows
 the key's four values back item for item, which the scan recomputes the key
@@ -404,7 +403,7 @@ None.
 
 Each runs once, reading hearth's `origin/main`:
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-09\.[1-3]'` prints 3.
-2. In a worktree at `origin/main`, `heavy cargo nextest run -p
+2. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-protocol-tree` passes, its `Summary` naming at least 28 tests.
 3. `git -C ~/src/rust/hearth grep -n -F 'hearth\0r' origin/main -- crates`
    prints one line, in `crates/hearth-protocol-tree/src/frame.rs`; in that

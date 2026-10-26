@@ -166,34 +166,23 @@ the closing repins (Repin). The increments of each session are in its file.
   `AGENTS.md` and `docs/development/workflow.md`, this README,
   `code-organization.md`, and the rulings of `decisions.md` that name its
   session. Nothing else is read whole.
-- **The code graph:** the codebase-memory projects
-  `home-free-src-rust-skein` and `home-free-src-rust-hearth`, as
-  implementer.md, 8.1, says: never call `list_projects`, `index_status`,
-  `check_index_coverage` or `index_repository`. The graph indexes each
-  repository's `main`, never the session's worktree: check each name it
-  gives with `rg` in the worktree before relying on it.
-- **skein's gate** (decisions.md, 1): each skein increment lands with
-  `land --gate` and the gate below, whatever the machine, and its commit
-  body says so in one line. It is check.sh's commands at `f981746`
+- **skein's gate** (decisions.md, 1) is check.sh's commands at `f981746`
   (unchanged since `7e8fb70`) with one browser test filtered,
   `a_page_of_another_origin_is_opened_by_its_step`, which failed on x1 at
   the base (`findings/skein.md`, 4); the plan's skein changes touch no
   `skein-ui-web` code. Run once at the base: `findings/measurements.md`.
 
   ```sh
-  land --gate 'cargo fmt --all --check && cargo clippy --workspace --all-targets -- -D warnings && cargo check --target wasm32-unknown-unknown -p skein-lib -p skein-codec -p skein-http && cargo clippy --target wasm32-unknown-unknown -p skein-ui -p skein-ui-web -p skein-ui-example-view -p skein-ui-example-shell-web -- -D warnings && scripts/taste.sh crates/skein-tls tests/tls && cargo check -p skein-tls && export NEXTEST_DOUBLE_SPAWN=0 && cargo nextest run --workspace && cargo nextest run --workspace --profile fuzzy && cargo build --target wasm32-unknown-unknown -p skein-ui-example-shell-web && cargo run -p skein-ui-bundle -- --module target/wasm32-unknown-unknown/debug/skein_ui_example_shell_web.wasm --name skein_ui_example_shell_web --prefix /bundle/ --stylesheet examples/ui/shell-web/notes.css --out target/ui-example-bundle --noscript "Notes needs WebAssembly and scripts." && cargo build -p skein-ui-example-server && export SKEIN_UI_EXAMPLE_BUNDLE="$(pwd)/target/ui-example-bundle" && cargo nextest run --workspace --profile browser -E "not test(=a_page_of_another_origin_is_opened_by_its_step)"'
+  bash -c 'cargo fmt --all --check && cargo clippy --workspace --all-targets -- -D warnings && cargo check --target wasm32-unknown-unknown -p skein-lib -p skein-codec -p skein-http && cargo clippy --target wasm32-unknown-unknown -p skein-ui -p skein-ui-web -p skein-ui-example-view -p skein-ui-example-shell-web -- -D warnings && scripts/taste.sh crates/skein-tls tests/tls && cargo check -p skein-tls && export NEXTEST_DOUBLE_SPAWN=0 && cargo nextest run --workspace && cargo nextest run --workspace --profile fuzzy && cargo build --target wasm32-unknown-unknown -p skein-ui-example-shell-web && cargo run -p skein-ui-bundle -- --module target/wasm32-unknown-unknown/debug/skein_ui_example_shell_web.wasm --name skein_ui_example_shell_web --prefix /bundle/ --stylesheet examples/ui/shell-web/notes.css --out target/ui-example-bundle --noscript "Notes needs WebAssembly and scripts." && cargo build -p skein-ui-example-server && export SKEIN_UI_EXAMPLE_BUNDLE="$(pwd)/target/ui-example-bundle" && cargo nextest run --workspace --profile browser -E "not test(=a_page_of_another_origin_is_opened_by_its_step)"'
   ```
 
-  Each skein session passes this command to `land --gate` as written, in
-  single quotes, its commands joined by `&&`, never a script or file of
-  its own (ruling 102: 089ed83 landed on a gate script without `set -e`,
-  its focused suite failed). The browser suite needs `SKEIN_TEST_CHROMIUM` in the environment; the
+  The browser suite needs `SKEIN_TEST_CHROMIUM` in the environment; the
   coordinator checks it at the start (Prerequisites). Where
   skein's `scripts/check.sh` differs from these commands once the run
   starts, check.sh's commands win, with the same filter.
 - **Upstream first** (development.md, 5.3 and 9.5): a hearth increment
   whose Needs name a skein capability starts with a repin commit of its
-  own, after `git -C ~/src/rust/skein fetch origin`, `heavy cargo update
+  own, after `git -C ~/src/rust/skein fetch origin`, `cargo update
   -p skein-lib`, which moves hearth's whole
   skein source to skein's `origin/main`; then `grep -o
   'skein.git#[0-9a-f]*' Cargo.lock | sort -u` prints one commit, which
@@ -201,10 +190,6 @@ the closing repins (Repin). The increments of each session are in its file.
   landing> <that commit>` accepts. hearth names skein as its `AGENTS.md`
   says, by URL with no rev.
 - **hearth's first landings** (workflow.md, 1):
-  - a landing that adds a crate lands with `land`; a landing that changes
-    only `.config/`, the root `Cargo.toml` or `scripts/` while no crate
-    is on `main` lands with `LAND_PREBUILD= land`. Several sessions add
-    their first crate at once; whichever lands first ends the case;
   - **the members' globs** (decisions.md, 16): the landing that adds the
     first crate under `crates/`, `testing/` or `tests/` adds that root's
     glob to the root `Cargo.toml`'s `members` (`"crates/*"`,
@@ -219,7 +204,7 @@ the closing repins (Repin). The increments of each session are in its file.
 - **Profiles outside the gate:** hearth 34.1 adds the `conformance`
   profile (testing.md, 9.2: a 2-minute ceiling) with its first test, and
   its binaries join the default and fuzzy profiles' exclusions in the
-  same landing (workflow.md, 2). It runs as `heavy cargo nextest run
+  same landing (workflow.md, 2). It runs as `cargo nextest run
   --workspace --profile conformance`, never in the gate.
 - **One unsafe exception:** `crates/hearth/src/lib.rs` holds one
   `#[expect(unsafe_code, reason = …)]`, `hearth::umask`'s `libc::umask`, with its
@@ -243,9 +228,7 @@ the closing repins (Repin). The increments of each session are in its file.
   variant to a vocabulary that crosses the protocol layer extends
   `hearth-protocol-builder`'s translation in the same increment
   (code-organization.md, 3).
-- **Edits outside an increment's Files** that are no question (they
-  replace implementer.md, 8.2's "it is in your session's own files" for
-  these cases only):
+- **Edits outside an increment's Files** that are no question:
   - an arm each exhaustive match needs for a variant the increment adds,
     in any crate, at most 5 lines per match;
   - the users of a type the Shape changes, edited to its new form with no
@@ -337,8 +320,7 @@ the closing repins (Repin). The increments of each session are in its file.
     `Gate-Result` line, and nothing else is measured. An aim exceeded is
     a guide missed: the landing stands, and the session's next increment
     first makes the slowest tests cheaper, found once by the measure run
-    of the suite that missed (`.config/nextest.toml`'s two commands,
-    through `heavy --gate --`), until its own gate is back under the aim;
+    of the suite that missed (`.config/nextest.toml`'s two commands), until its own gate is back under the aim;
     after a session's last increment the supervisor decides. Never:
     raising a `global-timeout`, a slow period or a per-test ceiling, or
     moving a focused test to the fuzzy suite.
@@ -387,10 +369,6 @@ the closing repins (Repin). The increments of each session are in its file.
   (`Pair<Sources>` is `SourcesPair { before, after }`, `Keyed<GroupKind>`
   is `GroupKeyed`), and a helper over them one fn per type. A test's
   `only<T>` stays.
-- **One land at a time in each repository:** a session runs `land` only
-  under its repository's lock, held for the whole of `land`, its retries
-  included: `flock ~/src/rust/tmp/hearth/render/land-hearth.lock land …`
-  in hearth, `land-skein.lock` in skein.
 - **Shared files,** which parallel sessions may both change; the session
   that lands second rebases onto the first and follows its change:
   - hearth's root `Cargo.toml` and `Cargo.lock` (every session that adds a
@@ -490,7 +468,7 @@ first. skein's browser suite runs only inside skein's gate.
   repository that the script names; nothing else fetches.
 - **crates.io,** twice: hearth 44.1's first landing, `sha1` `=0.10.7`
   (decisions.md, 13; with cfg-if, cpufeatures and digest 0.10); and hearth 30.4's
-  first landing: one `heavy cargo fetch` of minijinja-2.20.0, memo-map-0.3.4 and serde_json-1.0.154, with
+  first landing: one `cargo fetch` of minijinja-2.20.0, memo-map-0.3.4 and serde_json-1.0.154, with
   serde-1.0.229, serde_core, itoa, memchr and zmij that they need, which
   its `Cargo.lock` pins from the registry.
 
@@ -562,10 +540,10 @@ Each command runs once, after `done.md`, reading `origin/main`.
    'pub fn position\(|fn state_digest\(' origin/main --
    crates testing` prints a line for each of the two patterns.
 4. The client's render is the binary's: in a worktree of hearth at
-   `origin/main`, `heavy cargo nextest run -p hearth -E
+   `origin/main`, `cargo nextest run -p hearth -E
    'test(/^end_to_end_/)'` passes, its `Summary` line naming at least 2
    tests (render and diff, testing.md, 2.7).
-5. Conformance passes: in that worktree, `heavy cargo nextest run
+5. Conformance passes: in that worktree, `cargo nextest run
    --workspace --profile conformance` passes, its `Summary` line naming
    at least the git and resolve scenarios' tests; its one run within the
    profile's 2-minute ceiling.
@@ -574,7 +552,7 @@ Each command runs once, after `done.md`, reading `origin/main`.
    crates` prints one line, in `crates/hearth-client-protocol-records/src/`.
 7. The test-time aims, measured once in a worktree of hearth and of skein
    at `origin/main`:
-   `heavy --gate -- sh -c 'export NEXTEST_DOUBLE_SPAWN=0; for i in 1 2 3; do cargo nextest run --workspace 2>&1 | grep Summary; cargo nextest run --workspace --profile fuzzy 2>&1 | grep Summary; done'`.
+   `sh -c 'export NEXTEST_DOUBLE_SPAWN=0; for i in 1 2 3; do cargo nextest run --workspace 2>&1 | grep Summary; cargo nextest run --workspace --profile fuzzy 2>&1 | grep Summary; done'`.
    The medians of the three `Summary` times per suite, against
    Rules' aims. An aim missed is recorded with the three slowest tests by
    name in decisions.md's rulings, for the user; the run is done either

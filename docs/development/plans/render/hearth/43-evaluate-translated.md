@@ -57,7 +57,7 @@ real loop. hearth 14's Choices and Rules bind here as there.
   list of banned forms (render.md, 8.3; code-organization.md, 6).
 - **Expected values are literals,** from 7.5 by hand, the systemd and
   coreutils rows from one run of `systemd-escape` 261 and coreutils 9.10 on
-  x1, pasted: the implementer runs neither tool; the planner rechecks the
+  x1, pasted: the author runs neither tool; the planner rechecks the
   rows on this machine in the base runs (`findings/`). Limits are render's
   `limits::SHIPPED`, or named beside it.
 - **Shared files:** hearth 14's, and `crates/hearth-protocol-builder/
@@ -221,7 +221,7 @@ fn evaluating_at_the_limits_holds_no_more_than_the_worst_case() {
     }
 }
 ```
-Proof: world, `heavy cargo nextest run -p hearth-render-world -E
+Proof: world, `cargo nextest run -p hearth-render-world -E
 'binary(=memory)'`, once: an evaluation at `SHIPPED` holds no more than
 `worst_case`, the share hearth 28 adds to render's. Bound 1 s.
 Don't: raise a limit or a ceiling to fit a test.
@@ -267,9 +267,9 @@ None.
 ## Done when
 
 1. `git log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-43\.[1-3]'` prints 3.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run
    -p hearth-domain-render -p hearth-render-world -p hearth-protocol-builder`
-   passes, and `heavy cargo nextest run -p hearth-render-world --profile
+   passes, and `cargo nextest run -p hearth-render-world --profile
    fuzzy` passes.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main
    crates/hearth-protocol-builder/src/translate/` lists `operations.rs`.

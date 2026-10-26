@@ -174,7 +174,7 @@ record's bytes equal), `a_store_past_its_cache_limit_refuses_every_new_file`
 as they were, neither of THIN's in `cache/`),
 `a_cache_that_fills_while_rendering_removes_the_file_past_it` (`cache_files:
 1`: `/etc/motd`'s file and record kept, the other's absent, exit 75).
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=each_static_file_enters_the_cache_with_its_record_naming_its_blob)'`:
 through real git's `cat-file`, each static file of THIN is in `cache/` by its
 SHA-256 beside a kind-5 record naming its blob. Bound: 0.5 s.
@@ -248,7 +248,7 @@ a frame of version 2; `<K>.record.skein-0123456789abcdef`; `junk`; after a
 render, `resolutions/` lists `<K>.record`, `<D4>.record` and `junk`),
 `the_scan_empties_staging_and_keeps_it` (laid: `staging/<64 hex>/root/var/lib/apt/lists/{partial/, x}`, a symbolic
 link; after a render `staging/` exists, 0700, and lists nothing).
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=the_scan_removes_resolutions_whose_keys_or_digests_do_not_recompute)'`:
 the real loop keeps a resolution whose key and digest recompute and removes
 those whose key or digest does not. Bound: 0.5 s. Nothing in M1 reads the
@@ -360,7 +360,7 @@ standard error holds the one line, standard output THIN's),
 written with the test's uid plus one: standard output empty, standard error the
 one line `hearth: cannot open the store <store>: store.record is uid <uid+1>'s,
 not uid <uid>'s`, exit 75).
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=a_render_waiting_past_its_notice_says_once_that_it_waits)'`: a second
 builder over a held store says on standard error, once, that it waits, then
 prints THIN's spec on standard output. Bound: 0.5 s.
@@ -462,9 +462,9 @@ None.
    crates/hearth-domain-store/src/` lists `enter.rs`, `index.rs`, `lib.rs`,
    `limits.rs`, `resolutions.rs`, `scan.rs`, `start.rs`, `tests`, `tests.rs`
    and `vocabulary.rs`.
-3. In a worktree at `origin/main`, once: `heavy cargo nextest run -p
+3. In a worktree at `origin/main`, once: `cargo nextest run -p
    hearth-domain-store -p hearth-builder-world
    -E 'package(hearth-domain-store) | binary(=store)'` passes, its `Summary` naming at least 46 tests (hearth
-   23's 21 under that filter at hearth 3fd9fab, and these 25); and `heavy cargo nextest run -p
+   23's 21 under that filter at hearth 3fd9fab, and these 25); and `cargo nextest run -p
    hearth-domain-builder -p hearth-protocol-builder -p
    hearth-client-protocol-records -p hearth-builder-world -p hearth` passes.

@@ -77,7 +77,7 @@ git scenario runs on the fake too, compared with real git.
   gate's `the_fake_prints_each_git_recording_byte_for_byte` holds fake git
   to the recordings at every landing, and a landing that changes
   `testing/hearth-fake-{machine,git}/` or `testing/recordings/git/` also
-  runs `heavy cargo nextest run --workspace --profile conformance` once.
+  runs `cargo nextest run --workspace --profile conformance` once.
 
 ## Increments
 
@@ -285,7 +285,7 @@ each line 44.2 prints has a recorded run (4.1). Five of them,
 case names in `CASE_NAMES` and `Expected::Failed`, a line `failed exit <n>` | `failed signal <n>`
 | `failed <error>` (the machine's, by name: `malformed` for the missing
 side), which `world::replay` answers, so each recording keeps its
-`expect`. The ten are recorded once, with `HEARTH_RECORD=1 heavy cargo nextest run -p hearth-conformance-world --profile conformance -E 'test(=each_git_case_prints_on_the_fake_what_real_git_prints)'`.
+`expect`. The ten are recorded once, with `HEARTH_RECORD=1 cargo nextest run -p hearth-conformance-world --profile conformance -E 'test(=each_git_case_prints_on_the_fake_what_real_git_prints)'`.
 Test shape: `each_git_case_prints_on_the_fake_what_real_git_prints` in
 `tests/conformance_git.rs`: one table test over `CASES`, stdout, stderr
 and exit compared whole but for `ALLOWED`, naming the case and the first
@@ -313,7 +313,7 @@ fn the_fake_prints_each_git_recording_byte_for_byte() {
     }
 }
 ```
-Proof: live, `heavy cargo nextest run -p hearth-conformance-world
+Proof: live, `cargo nextest run -p hearth-conformance-world
 --profile conformance -E 'test(=each_git_case_prints_on_the_fake_what_real_git_prints)'`:
 real git and the fake print the same bytes and exit for each case, on
 scratch directories, no network. Bound: 20 s of the profile's 2 minutes.
@@ -391,7 +391,7 @@ None.
 
 1. `git -C ~/src/rust/hearth ls-tree -d --name-only origin/main
    testing/hearth-fake-git | wc -l` prints 1.
-2. In a worktree at `origin/main`, `heavy cargo nextest run -p
+2. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-fake-git` passes, naming at least 18 tests.
 3. There, 44.3's Proof command passes.
 4. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-44\.[1-3]'` prints 3.

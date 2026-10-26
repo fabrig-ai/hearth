@@ -69,10 +69,6 @@ position on every value) needs the whole session.
 
 ## Rules that bind it
 
-- **The gate** (README, Rules; decisions.md, 1): each increment lands
-  with `flock ~/src/rust/tmp/hearth/render/land-skein.lock land --gate
-  '<the README's command, whole>'`, its commit body saying so in one
-  line; no probe of the machine.
 - **Test time** (README, Rules): this session's allotment is 0.4 s of
   skein's focused suite (6.46 s) and 1 s of its fuzzy suite (41.84 s)
   (skein 02: 0.4 s / 1 s; 03: 0.3 s / 0.5 s; 04: 0.4 s / 1.5 s; 05:
@@ -177,7 +173,7 @@ fn the_reference_and_the_world_place_each_token_where_counted() {
 ```
 Proof: world, the highest layer that reads positions (nothing above
 skein-json asks for one until hearth 03's `hearth-protocol-config`):
-`heavy cargo nextest run -p skein-json-world -E
+`cargo nextest run -p skein-json-world -E
 'test(=every_transcript_decodes_to_its_expectation_whatever_the_cuts_and_scans)'`
 (`transcripts.rs:43`), now through `world::check`: every token of the 39
 transcripts, the Anthropic message's 41 lines and the OpenAI completion's
@@ -234,7 +230,7 @@ it, a row's limits other than `LIMITS` named in it:
 `the_reference_and_the_world_place_each_failure_by_the_table` (the
 `Trailing`, `TooDeep`, `[-\n]`, `[1\n` and `nul!` rows, through
 `failed_at` and 16 calm seeds). Ceilings as 02.1's.
-Proof: world, `heavy cargo nextest run -p skein-json-world -E
+Proof: world, `cargo nextest run -p skein-json-world -E
 'test(=the_stream_ending_after_any_byte_decodes_as_that_prefix)'`
 (`tests/json/tests/world.rs:51`): the 46-byte document cut after each
 byte, three seeds each, fails `Truncated` where its next byte would be,
@@ -280,7 +276,7 @@ Test shape: `src/tests/position.rs`: `a_bad_escape_is_at_its_backslash`
 (`"\\ud83d\\u12G4"` (1, 1, 2); at `string: 4`, `"a\\ud83d\\ude00"` (2, 1,
 3)). World: these rows join `positions.rs`'s
 table. Ceilings as 02.1's.
-Proof: world, `heavy cargo nextest run -p skein-json-world -E
+Proof: world, `cargo nextest run -p skein-json-world -E
 'test(=every_transcript_decodes_to_its_expectation_whatever_the_cuts_and_scans)'`
 again: the hostile transcripts' bad and short escapes, lone and swapped
 surrogates, invalid and overlong UTF-8, control character and strings

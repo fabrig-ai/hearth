@@ -141,7 +141,7 @@ for both on `Kind::Resolution`, `Some` for both on `Store` and
 overflow, then `depth` one past `encode::DEPTH`);
 in `fuzzy_tree.rs`, `random_resolution_frames_cut_and_mutated_read_as_the_oracle_says`
 (200 seeds of up to 512 packages, about 2.5 s).
-Proof: world, above hearth 09's unit tests. Run once: `heavy cargo
+Proof: world, above hearth 09's unit tests. Run once: `cargo
 nextest run -p hearth-tree-world -E
 'test(a_mutated_frame_is_unreadable_or_its_records_one_encoding)'`; it shows
 that a frame of each kind changed at random is refused, or is the one
@@ -174,7 +174,7 @@ None.
 
 Each runs once, reading hearth's `origin/main`:
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-39\.[1-1]'` prints 1.
-2. In a worktree at `origin/main`, `heavy cargo nextest run -p
+2. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-tree-world` passes, its `Summary` naming at least 9 tests, and
-   `heavy cargo nextest run -p hearth-tree-world --profile fuzzy` passes,
+   `cargo nextest run -p hearth-tree-world --profile fuzzy` passes,
    naming 2.

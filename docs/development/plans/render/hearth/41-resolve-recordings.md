@@ -98,7 +98,7 @@ in the gate reads the cache or reaches past loopback.
   locatable, a key apt refuses): 41.1 changes no request and no vector; it
   is named with apt's lines in `blocked.md`, and 41.1 waits.
 - **Profiles outside the gate** (README): `conformance_resolve` is selected
-  by 34.1's `binary(/^conformance_/)` and runs as `heavy cargo nextest run
+  by 34.1's `binary(/^conformance_/)` and runs as `cargo nextest run
   --workspace --profile conformance`, never in the gate;
   `.config/nextest.toml` does not change.
 
@@ -168,7 +168,7 @@ fn real_mmdebstrap_resolves_test_min_through_the_mirror() {
     scenario.settle(case, &recording);
 }
 ```
-Proof: live, conformance on loopback: `HEARTH_RECORD=1 heavy cargo nextest
+Proof: live, conformance on loopback: `HEARTH_RECORD=1 cargo nextest
 run -p hearth-conformance-world --profile conformance -E
 'binary(=conformance_resolve)'` once (seven cases written; `git status
 --short -uall testing/recordings | grep -vc '^?? testing/recordings/mmdebstrap/'`
@@ -264,8 +264,7 @@ None.
 2. `git -C ~/src/rust/hearth ls-tree -r --name-only origin/main
    testing/recordings/mmdebstrap | grep -c -E '/(exit|stanzas)$'` prints 8:
    seven cases, one with stanzas.
-3. In a worktree of hearth at `origin/main` on the run's machine, `heavy
-   cargo nextest run --workspace --profile conformance -E
+3. In a worktree of hearth at `origin/main` on the run's machine, `cargo nextest run --workspace --profile conformance -E
    'binary(=conformance_resolve)'` passes once, its `Summary` naming at
    least eight tests (hearth 46.2 adds its own), within the profile's 2
    minutes.

@@ -194,7 +194,7 @@ fn each_outcome_exits_with_its_client_readme_code() {
 
 Proof: unit layer: nothing calls the crate until hearth 11's thin story,
 which needs 10.2 (its binary prints through 10.2's printer), at the
-process layer. Run once: `heavy cargo nextest run -p
+process layer. Run once: `cargo nextest run -p
 hearth-client-protocol-records -E 'test(=tests::text::a_spec_prints_its_meta_and_config_as_render_md_shows)'`.
 Bound 2 s.
 Don't: name a type of render or of another machine; check the records'
@@ -263,7 +263,7 @@ Then `only_the_answers_first_record_follows_the_version_line`,
 Proof: unit layer: hearth 11's thin story, which needs this increment,
 connects it, its binary's
 `hearth render` printing through `hearth-protocol-builder` and this
-printer to standard output (the process layer). Run once: `heavy cargo
+printer to standard output (the process layer). Run once: `cargo
 nextest run -p hearth-client-protocol-records -E 'test(=tests::printer::a_record_goes_down_in_pieces_of_at_most_a_chunk)'`.
 Bound 2 s.
 Don't: write JSON by hand; print a version line in text; demand room
@@ -289,7 +289,7 @@ Test shape: in 10.1's and 10.2's files, after their references;
 `a_needed_resolution_prints_no_keys_line`,
 `json_gives_the_resolution_and_its_keys_whole`. Each under 20 ms.
 Proof: unit layer: nothing produces a resolution until hearth 24, which
-proves it on the thin story's path (`--resolve`). Run once: `heavy cargo
+proves it on the thin story's path (`--resolve`). Run once: `cargo
 nextest run -p hearth-client-protocol-records -E 'test(=tests::text::a_known_resolution_prints_the_keys_line_last)'`.
 Don't: add a part's record; print the resolution on a line of its own.
 Size: at most 90 lines.
@@ -405,7 +405,7 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-10\.[1-3]'` prints 3.
-2. In a worktree at `origin/main`, `heavy cargo nextest run -p
+2. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-client-protocol-records` passes, its `Summary` naming at least
    20 tests.
 3. `git -C ~/src/rust/hearth grep -n -E 'CLIENT_VERSION: u32 = 1'

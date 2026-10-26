@@ -47,7 +47,7 @@ on it are hearth 44's.
   `src/hearth.rs` (26.2; hearth 27, 28.1, 46.1) and `src/linux.rs`,
   `src/linux/*.rs` (26; hearth 28.1).
 - **A fake changed** (testing.md, 5.5): a landing that changes
-  `testing/hearth-fake-machine/` also runs `heavy cargo nextest run
+  `testing/hearth-fake-machine/` also runs `cargo nextest run
   --workspace --profile conformance` once, from hearth 44.3 on.
 - **No network, no host file:** `clippy.toml` bans `std::fs`.
 
@@ -278,6 +278,6 @@ None.
 
 1. `git -C ~/src/rust/hearth ls-tree -d --name-only origin/main
    testing/hearth-fake-machine | wc -l` prints 1.
-2. In a worktree at `origin/main`, `heavy cargo nextest run -p
+2. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-fake-machine` passes, naming at least 24 tests.
 3. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-26\.[1-2]'` prints 2.

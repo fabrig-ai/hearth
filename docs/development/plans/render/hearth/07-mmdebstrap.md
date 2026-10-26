@@ -412,9 +412,8 @@ None.
 ## Done when
 
 - `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-07\.[1-3]'` prints 3.
-- In a worktree of hearth at `origin/main`, once each: `heavy cargo nextest
-  run -p hearth-protocol-mmdebstrap -p hearth-mmdebstrap-world` and `heavy
-  cargo nextest run -p hearth-mmdebstrap-world --profile fuzzy` print a
+- In a worktree of hearth at `origin/main`, once each: `cargo nextest
+  run -p hearth-protocol-mmdebstrap -p hearth-mmdebstrap-world` and `cargo nextest run -p hearth-mmdebstrap-world --profile fuzzy` print a
   `Summary` line with no test failed.
 - `git -C ~/src/rust/hearth show origin/main:crates/hearth-protocol-mmdebstrap/Cargo.toml
   | grep -E '^(skein|hearth)-'` prints one line, which names `skein-lib`.

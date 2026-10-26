@@ -121,7 +121,7 @@ The generator writes the parentheses that precedence needs, and others at
 random, among them around a `~` beside `+ -` and an operand of `is` that
 is not a lookup chain (render.md 9.5); the reference marks as the chain
 rule above does.
-Proof: world; nothing calls the crate yet (hearth 05.1). `heavy cargo
+Proof: world; nothing calls the crate yet (hearth 05.1). `cargo
 nextest run -p hearth-template-world --profile fuzzy`, once, shows operators, the
 test and marked chains compiling as the reference compiles them. Bound:
 2 s.
@@ -166,7 +166,7 @@ Test shape: in `src/tests/jumps.rs`, each under 20 ms:
 `jumps_inside_a_moved_branch_keep_their_targets` (`(a and b) if c or d
 else e`), `a_conditional_without_else_is_refused_at_the_end`,
 `values_counts_the_deepest_stack_on_any_path`.
-Proof: world; nothing calls the crate until hearth 43.2. `heavy cargo
+Proof: world; nothing calls the crate until hearth 43.2. `cargo
 nextest run -p hearth-template-world --profile fuzzy`, once, shows all of 7.4
 compiling as the reference compiles it, every jump going forward, and the
 stack on every path as deep as `values` says. Bound: 2 s.
@@ -218,7 +218,7 @@ fn compiling_at_the_limits_holds_no_more_than_the_worst_case() {
     }
 }
 ```
-Proof: world; nothing calls the crate until hearth 43.2. `heavy cargo
+Proof: world; nothing calls the crate until hearth 43.2. `cargo
 nextest run -p hearth-template-world -E 'binary(memory)'`, once, shows
 that a compile at `SHIPPED` holds no more than `worst_case`. Bound: 1 s.
 Don't: raise a limit or a ceiling to fit a test.
@@ -267,8 +267,8 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-37\.[1-3]'` prints 3.
-2. In a worktree of hearth at `origin/main`, `heavy cargo nextest run -p
-   hearth-protocol-template -p hearth-template-world` and `heavy cargo
+2. In a worktree of hearth at `origin/main`, `cargo nextest run -p
+   hearth-protocol-template -p hearth-template-world` and `cargo
    nextest run -p hearth-template-world --profile fuzzy` each pass, once.
 3. `git -C ~/src/rust/hearth grep -n -i minijinja origin/main --
    crates/hearth-protocol-template tests/template` prints nothing.

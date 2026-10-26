@@ -197,7 +197,7 @@ with `hosts/x1/x1-lab.json` not JSON, then fixed: x1-lab's `change` line
 `failed` side `to`, exit 2, never 1); unit
 `a_target_one_side_has_and_failed_there_is_failed_not_added`,
 `a_target_failing_on_both_sides_is_failed_both_with_each_sides_errors`.
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=hearth_diff_names_each_changed_target_and_its_rebuild)'`:
 two commits through real git, both sides in one call, 6.3's target and
 file lines and the tally, exit 1. Bound 0.5 s.
@@ -253,7 +253,7 @@ render.md, 2.2) and `a_work_trees_gitattributes_do_not_make_a_file_binary`
 `json_counts_the_hunk_lines_left_out_past_200` (300 lines all changed:
 `left_out` 401: 601 lines from the first `@@`, 200 kept),
 `a_binary_file_answers_binary_with_no_hunk_line`.
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=hearth_diff_names_each_changed_target_and_its_rebuild)'` (the
 literal grown): real git's hunks of two cache files, decoded by 34.2's
 machine, printed under their file as 6.3 shows. Bound 0.5 s.
@@ -378,7 +378,7 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-25\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest
    run -p hearth-domain-render -p hearth-protocol-builder -p
    hearth-client-protocol-records -p hearth-builder-world -p hearth` passes.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main

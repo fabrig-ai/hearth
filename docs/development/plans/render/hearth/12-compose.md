@@ -340,7 +340,7 @@ None.
 ## Done when
 
 1. `git log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-12\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest
    run -p hearth-domain-render -p hearth-domain-builder -p
    hearth-render-world -p hearth-builder-world -p hearth-protocol-builder -p
    hearth-client-protocol-records` passes.

@@ -1,6 +1,6 @@
 # B6: hearth 17 to 22 at the bases (skein f981746, hearth 175e92f)
 
-Scratch: `~/src/rust/tmp/plan/hearth-render-scratch/B6-hearth` (members `scratch/s17` to `s22`, skein-lib by path on `~/src/rust/tmp/plan/hearth-render-skein`). Clippy for each: `heavy cargo clippy -p scratch-sNN --all-targets -- -D warnings`.
+Scratch: `~/src/rust/tmp/plan/hearth-render-scratch/B6-hearth` (members `scratch/s17` to `s22`, skein-lib by path on `~/src/rust/tmp/plan/hearth-render-skein`). Clippy for each: `cargo clippy -p scratch-sNN --all-targets -- -D warnings`.
 
 ## Done-when commands (run exactly, from any directory; hearth `origin/main` = 175e92f)
 Each session's item 1 (`git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' ... | grep -c -x -E 'hearth-NN\.[1-n]'`): exit 0 (grep -c), prints `0`; the check of landed state, runs, regex parses: as the plan says before the session (prints 5/5/5/4/4/4 after).
@@ -11,7 +11,7 @@ Each session's item 1 (`git -C ~/src/rust/hearth log origin/main --grep='^Plan: 
 - 21: item 3: `0`; item 4 (`grep -l -F tasks/hearth/task.json ... | wc -l`): `0`; item 5: exit 1, nothing.
 - 22: items 1, 3, 4, 5, 6: `0`, `0`, exit 1 nothing, exit 1 nothing, exit 1 nothing. Items 2, 3, 4 were wrapped across lines inside their backticks: defect, fixed (each on one line).
 - Each regex of those items: `grep -E '<pattern>' /dev/null` exits 1 (parses): `\bVec\b|\bString\b|^\s*_ =>`, `minijinja|legacy|workaround`, `pub fn inputs\(|debian: _`, `exports: _`, `const DEPTH: u32 = 64;`, `left_out: 0`.
-- Item 2 of every session (`heavy cargo nextest run -p hearth-domain-render ...`): at ready (no crate at the base); crate names match code-organization.md.
+- Item 2 of every session (`cargo nextest run -p hearth-domain-render ...`): at ready (no crate at the base); crate names match code-organization.md.
 - 17 ripple `git grep -n -w -e THIN_TEXT -e d5942fa1a047 -e 9970fb4d8f97 -- tests crates` and 17.1 `git grep -n -F fleet.json -- tests crates`, in B6-hearth: exit 1, nothing (no tests or crates at the base); both were wrapped across lines: defect, fixed.
 - `test(=` filters in 17 to 22: none.
 
@@ -31,7 +31,7 @@ Each session's item 1 (`git -C ~/src/rust/hearth log origin/main --grep='^Plan: 
 - s17 (17 Interface sketch + the two Test-shape references): defect, fixed: `translate::packages` and `boot` lacked `#[must_use]` (must_use_candidate). Stubs: Digest, Item, Value, Position, Place, Error, Expansion, Concrete, Schema, Target, Documents, Merge, Composed, Placement, Pair<T>, Layer, Limits, fixtures.
 - s18 (18 sketch): defect, fixed: `files::dropped` lacked `#[must_use]`. Stubs: Digest, Oid, Position, Fault, Declaration, Template, Limits, EntryChange, TreeEntry, Located, Context, Operand.
 - s19 (19 sketch + references of 19.1, 19.2, 19.4): defect, fixed: `translate::secrets` lacked `#[must_use]`. Stubs: Digest, Expansion, Error, Position, Accounts, ScriptsChange, Script (18.4's), Keyed (18's), Map, Name, Kind, fixtures (needs a `type Row` alias: type_complexity).
-- s20 third round (`containers` returns `Result`, `evaluate`/`conform` take `Against`/`Check`, `Cause` widened, `build` returns `Exports`): `heavy cargo clippy -p scratch-s20 --all-targets -- -D warnings` exit 0.
+- s20 third round (`containers` returns `Result`, `evaluate`/`conform` take `Against`/`Check`, `Cause` widened, `build` returns `Exports`): `cargo clippy -p scratch-s20 --all-targets -- -D warnings` exit 0.
 - s20 (20 sketch + the 20.2 reference): clean (body of `exports::build` consumes its box: boxed_local). Stubs: Digest, Position, Fault, Declaration, Limits, Target, Documents, Meta, Text, Interpolated, Entry (14's), Value (14's), Schema, Item, FaultKind, Root, Revision.
 - s21 (21 sketch): defect, fixed: `reserved::tree` and `live` lacked `#[must_use]`. Stubs: Map, Position, Expansion.
 - s22 (22 sketch + the 22.1 and 22.2 references): clean (`worst_case`, `new`, `finish` have `#[must_use]`). Stubs: Limits, Error, Accounts, Tmpfile, Initramfs, Expansion, Plan, Preset, Preseed, Parameter, DataEntry.
@@ -45,4 +45,4 @@ Nothing in 17 to 22 changes a thing that exists at the bases (no skein change; h
 
 ## Compile pass, planner-9 (2026-10-17, CP-C)
 
-scratch-s17..s22 re-synced with 17.x-22.x blocks verbatim (new test modules: s19 integ, s20 integ, s21 unit and integ, s22 tests incl. 22.1-22.3). `heavy cargo clippy -p <crate> --all-targets -- -D warnings`: exit 0 for each of the six. One plan defect: 20.3's test used banned `.concat()` and `.any(closure)`; fixed in 20-exports.md (fixtures::has_run).
+scratch-s17..s22 re-synced with 17.x-22.x blocks verbatim (new test modules: s19 integ, s20 integ, s21 unit and integ, s22 tests incl. 22.1-22.3). `cargo clippy -p <crate> --all-targets -- -D warnings`: exit 0 for each of the six. One plan defect: 20.3's test used banned `.concat()` and `.any(closure)`; fixed in 20-exports.md (fixtures::has_run).

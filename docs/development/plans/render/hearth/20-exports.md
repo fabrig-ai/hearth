@@ -428,7 +428,7 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-20\.[1-4]'` prints 4.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run --workspace` and `heavy cargo nextest run --workspace --profile fuzzy` pass.
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run --workspace` and `cargo nextest run --workspace --profile fuzzy` pass.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main crates/hearth-domain-render/src/ crates/hearth-domain-render/src/parts/ | grep -c -x -E 'crates/hearth-domain-render/src/(parts/)?exports\.rs'` prints 2.
 4. `git -C ~/src/rust/hearth grep -n -E 'exports: _' origin/main -- crates/hearth-protocol-builder/src/translate/declarations.rs | wc -l` prints 0.
 5. `git -C ~/src/rust/hearth grep -n -E 'const DEPTH: u32 = 64;' origin/main -- crates/hearth-client-protocol-records/src/form/json.rs | wc -l` prints 1.

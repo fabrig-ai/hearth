@@ -390,8 +390,8 @@ None.
 ## Done when
 
 1. `git log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-13\.[1-5]'` prints 5.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run -p hearth-domain-render -p hearth-render-world -p hearth-builder-world -p hearth-protocol-builder -p hearth-client-protocol-records` passes,
-   and `heavy cargo nextest run -p hearth-render-world --profile fuzzy -E 'binary(=fuzzy_schema)'` passes, its `Summary` naming 1 test.
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run -p hearth-domain-render -p hearth-render-world -p hearth-builder-world -p hearth-protocol-builder -p hearth-client-protocol-records` passes,
+   and `cargo nextest run -p hearth-render-world --profile fuzzy -E 'binary(=fuzzy_schema)'` passes, its `Summary` naming 1 test.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main crates/hearth-protocol-builder/src/translate/` lists `declarations.rs`,
    and `git -C ~/src/rust/hearth grep -n -E 'Schema\(Schema\),' origin/main -- crates/hearth-domain-render/src/errors.rs crates/hearth-client-protocol-records/src/errors.rs | wc -l` prints 2.
 4. `git -C ~/src/rust/hearth grep -n -E ', \.\. ?\}|\(\.\.\)' origin/main -- crates/hearth-protocol-builder/src/translate | wc -l` prints 0 (a struct update such as `..SHIPPED` is no match).

@@ -387,8 +387,7 @@ None.
 ## Done when
 
 1. `git log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-14\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run
-   -p hearth-domain-render -p hearth-render-world` passes, and `heavy
-   cargo nextest run -p hearth-render-world --profile fuzzy` passes.
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run
+   -p hearth-domain-render -p hearth-render-world` passes, and `cargo nextest run -p hearth-render-world --profile fuzzy` passes.
 3. `git -C ~/src/rust/hearth grep -n -i minijinja origin/main --
    crates/hearth-domain-render tests/render/src` prints nothing.

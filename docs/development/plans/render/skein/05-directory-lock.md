@@ -90,10 +90,6 @@ the real kernel by conformance; 05.2 gives io's owners `Lock`, answered
   testing/skein-fake-machine/src`: a match, it adds `Handle::locked` to
   that digest, with a test that a held lock changes it; none, skein 03.3
   digests it with the rest.
-- **The gate** (README, Rules; decisions.md, 1): each increment lands with `flock
-  ~/src/rust/tmp/hearth/render/land-skein.lock land --gate '<the README's
-  command, whole>'`, its commit body saying so in one line; no probe of
-  the machine. No `skein-ui-web` code changes.
 - **Test time** (README, Rules; `findings/measurements.md`): focused
   6.46 s and fuzzy 41.84 s at the base; this session's allotment is 0.4 s
   and 2 s (skein 02: 0.4 s / 1 s; 03: 0.3 s / 0.5 s; 04: 0.4 s / 1.5 s;
@@ -221,7 +217,7 @@ the machine's tests, `a_lock_is_held_through_another_handle_until_it_closes`,
 asserts some `Lock` completed `Err(NoBufferSpace)`; if none does, the
 `Lock`'s `no_buffer` is raised to 20 in 1,000 for this workload only, and
 the assert is never skipped.
-Proof: process, the real kernel: `heavy cargo nextest run -p skein-conformance-ring
+Proof: process, the real kernel: `cargo nextest run -p skein-conformance-ring
 -E 'test(=a_directory_lock_is_busy_through_a_second_open_until_the_first_closes)'`,
 once: `flock` through a second open of one directory answers `Busy`
 until the first open's close, and a living child holds none. Bound: 1 s.
@@ -279,7 +275,7 @@ Test shape:
   `heard` starts `Busy` and ends with its one `Locked`; no handle left
   open), `a_lock_asked_again_through_its_root_is_locked`.
 - The real ring: `a_second_root_of_a_locked_directory_hears_busy_over_the_ring`.
-Proof: process: `heavy cargo nextest run -p skein-io-world -E
+Proof: process: `cargo nextest run -p skein-io-world -E
 'test(=a_second_root_of_a_locked_directory_hears_busy_over_the_ring)'`,
 once: an owner over the real ring holding two roots of one scratch
 directory hears `Locked` through the first, `Busy` through the second,
@@ -339,13 +335,13 @@ None.
 ## Done when
 
 Each command once, reading skein's `origin/main` (the last two in a
-worktree of it, through `heavy`):
+worktree of it):
 
 ```sh
 git -C ~/src/rust/skein log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'skein-05\.[12]'
 git -C ~/src/rust/skein grep -n -E '^    (Lock|Locked|Busy) \{$|^    Busy,$' origin/main -- crates/skein-io/src/file.rs crates/skein-io/src/kernel.rs
-heavy cargo nextest run -p skein-conformance-ring -p skein-conformance-sim -E 'test(=a_directory_lock_is_busy_through_a_second_open_until_the_first_closes)'
-heavy cargo nextest run -p skein-io-world -E 'test(=a_second_root_of_a_locked_directory_hears_busy_over_the_ring)'
+cargo nextest run -p skein-conformance-ring -p skein-conformance-sim -E 'test(=a_directory_lock_is_busy_through_a_second_open_until_the_first_closes)'
+cargo nextest run -p skein-io-world -E 'test(=a_second_root_of_a_locked_directory_hears_busy_over_the_ring)'
 ```
 
 The first prints 2; the second 5 lines, file.rs's `Lock`, `Locked` and

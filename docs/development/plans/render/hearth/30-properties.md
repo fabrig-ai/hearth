@@ -244,7 +244,7 @@ Choices need; `templates::output_of(&str) -> String` makes a case of it:
 `{{ e }}` for a scalar `e`, or `{% if e %}x{% else %}y{% endif %}`;
 `fixtures::draw(seed) -> (Rng, Roots)`. The first landing's `Cargo.lock` pins
 minijinja-2.20.0, memo-map-0.3.4 and serde_json-1.0.154 (and serde, itoa,
-memchr, zmij) from the registry (README, Live services: one `heavy cargo
+memchr, zmij) from the registry (README, Live services: one `cargo
 fetch`).
 Test shape: world, under 0.5 s:
 `generated_expressions_render_as_the_oracle_renders_them` (200 seeds),
@@ -427,8 +427,8 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-30\.[1-6]'` prints 6.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run
    -p hearth-render-world -p hearth-config-world -p hearth-template-world
-   -p hearth-git-world -p hearth-builder-world` passes, and `heavy cargo nextest run --workspace --profile fuzzy -E 'binary(/^fuzzy_(oracle|properties|goldens|revisions|inputs)$/)'` passes, its `Summary` naming 25
+   -p hearth-git-world -p hearth-builder-world` passes, and `cargo nextest run --workspace --profile fuzzy -E 'binary(/^fuzzy_(oracle|properties|goldens|revisions|inputs)$/)'` passes, its `Summary` naming 25
    tests (11, 30.1's sweep counted as its 15 batches: rulings 195 and 201).
 3. `git -C ~/src/rust/hearth grep -l -i minijinja origin/main -- crates testing tests ':!tests/render/tests/oracle/engine.rs' ':!tests/render/Cargo.toml' | wc -l` prints 0, and `git -C ~/src/rust/hearth grep -c '=2.20.0' origin/main -- tests/render/Cargo.toml | awk -F: '{print $NF}'` prints 1.

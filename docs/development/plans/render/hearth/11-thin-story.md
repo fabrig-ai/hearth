@@ -156,7 +156,7 @@ Then, in `tests/thin.rs`, `render_lists_once_then_reads_each_targets_documents_o
 `a_refused_document_fails_its_targets_and_spares_the_rest`,
 `targets_are_answered_in_name_order_each_once`.
 Proof: world, `a_targets_meta_is_its_names_and_the_base_envs_placement`:
-x1-prod's meta and spec digest, whatever the pace. Run once: `heavy cargo
+x1-prod's meta and spec digest, whatever the pace. Run once: `cargo
 nextest run -p hearth-render-world -E 'test(=a_targets_meta_is_its_names_and_the_base_envs_placement)'`.
 Nothing above exists yet (11.3 connects it through real git). Bound 0.5 s.
 Don't: read `fleet.json`, the base document or `tasks/` (32.1, 12); check
@@ -205,7 +205,7 @@ Then `rev_parse_exiting_1_answers_unresolved`,
 `a_second_call_while_one_is_held_panics` (`should_panic`).
 Proof: unit, `a_documents_blob_reaches_render_decoded_with_its_placement`:
 x1-prod's document, from `batch` pieces to render's `Document`. Run once:
-`heavy cargo nextest run -p hearth-protocol-builder -E 'test(=tests::read::a_documents_blob_reaches_render_decoded_with_its_placement)'`.
+`cargo nextest run -p hearth-protocol-builder -E 'test(=tests::read::a_documents_blob_reaches_render_decoded_with_its_placement)'`.
 No service runs the layer yet (11.3). Bound 0.02 s.
 Don't: keep a deadline on git (render.md 2.2: none in M1); write render's limits into
 the protocol layer (`max` is the listed size, checked by render); hold
@@ -271,7 +271,7 @@ directory: `should_panic(expected = "git is required")`); unit:
 `the_terminal_record_follows_the_last_spec_then_the_stream_finishes`.
 Proof: process, `hearth_render_prints_the_thin_repositorys_spec_through_real_git`:
 the shipped service, real git and 10.2's printer give 9.2's lines and exit 0.
-Run once: `heavy cargo
+Run once: `cargo
 nextest run -p hearth-builder-world -E 'test(=hearth_render_prints_the_thin_repositorys_spec_through_real_git)'`.
 Bound 0.5 s.
 Don't: depend on `std::process` or `std::fs` in the service; print in
@@ -392,7 +392,7 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-11\.[1-3]'` prints 3.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run
    -p hearth-render-world -p hearth-builder-world` passes, its `Summary`
    naming at least 13 tests.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main

@@ -77,8 +77,7 @@ on the fake, against real mmdebstrap's recordings.
   `the_fake_prints_each_mmdebstrap_recording_as_recorded` holds fake
   mmdebstrap to the recordings at every landing, and a landing that
   changes `testing/hearth-fake-{machine,mmdebstrap}/`,
-  `testing/recordings/mmdebstrap/` or `testing/mirror/` also runs `heavy
-  cargo nextest run --workspace --profile conformance` once.
+  `testing/recordings/mmdebstrap/` or `testing/mirror/` also runs `cargo nextest run --workspace --profile conformance` once.
 
 ## Increments
 
@@ -203,7 +202,7 @@ test-min's or test-boot's closure.
   names over the seven cases (marked, candidates weighed, providers
   ranked), so that it resolves each case as the whole index does; under
   `HEARTH_RECORD=1` the live run writes it, else a cut unlike it fails
-  naming the flag. A bump of the pin rewrites it: `HEARTH_RECORD=1 heavy cargo nextest run -p hearth-conformance-world --profile conformance -E 'test(=the_committed_universe_is_what_the_cases_read_of_the_index)'`, once.
+  naming the flag. A bump of the pin rewrites it: `HEARTH_RECORD=1 cargo nextest run -p hearth-conformance-world --profile conformance -E 'test(=the_committed_universe_is_what_the_cases_read_of_the_index)'`, once.
 - **The replay** (4.5: "One recording, two uses"; 5.5, "It runs when a
   fake or a recording changes"): each recording of every version under
   `testing/recordings/mmdebstrap/<mmdebstrap>-apt<apt>/`, through `run`
@@ -244,7 +243,7 @@ fn the_fake_prints_each_mmdebstrap_recording_as_recorded() {
     }
 }
 ```
-Proof: live, `heavy cargo nextest run -p hearth-conformance-world
+Proof: live, `cargo nextest run -p hearth-conformance-world
 --profile conformance -E
 'test(=fake_mmdebstrap_leaves_what_real_mmdebstrap_recorded_for_each_case)'`:
 on forky's pinned universe of about 70,000 packages, the fake leaves for
@@ -341,10 +340,10 @@ None.
 
 ## Done when
 
-1. In a worktree at `origin/main`, `heavy cargo nextest run -p
+1. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-fake-machine -p hearth-fake-mmdebstrap` passes, its `Summary`
    naming at least 74 tests (hearth 26's 39 and hearth 27's 27 there,
    this session's 8).
-2. There, 46.2's Proof command passes, once; and `XDG_CACHE_HOME=$(mktemp -d) heavy cargo nextest run -p hearth-conformance-world -E 'test(=the_fake_prints_each_mmdebstrap_recording_as_recorded)'` passes
+2. There, 46.2's Proof command passes, once; and `XDG_CACHE_HOME=$(mktemp -d) cargo nextest run -p hearth-conformance-world -E 'test(=the_fake_prints_each_mmdebstrap_recording_as_recorded)'` passes
    with no fetched mirror.
 3. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-46\.[1-2]'` prints 2.

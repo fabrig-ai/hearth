@@ -269,7 +269,6 @@ None.
 ## Done when
 
 - `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-38\.[1-2]'` prints 2.
-- In a worktree of hearth at `origin/main`, once each: `heavy cargo nextest
-  run -p hearth-protocol-mmdebstrap -p hearth-mmdebstrap-world` and `heavy
-  cargo nextest run -p hearth-mmdebstrap-world --profile fuzzy` print a
+- In a worktree of hearth at `origin/main`, once each: `cargo nextest
+  run -p hearth-protocol-mmdebstrap -p hearth-mmdebstrap-world` and `cargo nextest run -p hearth-mmdebstrap-world --profile fuzzy` print a
   `Summary` line with no test failed.

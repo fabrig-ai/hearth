@@ -420,11 +420,11 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-28\.[1-5]'` prints 5.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run -p
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run -p
    hearth-fake-machine -p hearth-builder-world -p hearth-service-builder -p
-   hearth` passes, and `heavy cargo nextest run -p hearth-builder-world
+   hearth` passes, and `cargo nextest run -p hearth-builder-world
    --profile fuzzy -E 'binary(/^fuzzy_(protocol|simulation)$/)'` passes, its
    `Summary` naming 3 tests.
 3. `git -C ~/src/rust/hearth grep -n -A3 'fn worst_case' origin/main -- crates/hearth/src | grep -c 'u64::MAX'` prints 0; `git -C ~/src/rust/hearth grep -n 'impl skein_world::Machine for Behind' origin/main -- testing/hearth-fake-machine/src` prints one line.
-4. `heavy cargo nextest run -p hearth-builder-world -E 'test(=diff_resolve_resolves_each_changed_key_once_in_turn_before_printing) | test(=a_diff_whose_git_fails_prints_the_change_bare_then_its_tool_error_and_exits_75)'`
+4. `cargo nextest run -p hearth-builder-world -E 'test(=diff_resolve_resolves_each_changed_key_once_in_turn_before_printing) | test(=a_diff_whose_git_fails_prints_the_change_bare_then_its_tool_error_and_exits_75)'`
    passes, its `Summary` naming 2 tests.

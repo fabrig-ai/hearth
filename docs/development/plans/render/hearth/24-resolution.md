@@ -145,7 +145,7 @@ twice, the record laid between),
 `the_test_repositorys_targets_render_the_pins_resolution_inputs` (for 08.2: the
 JSON spec's `sources` equal 08.1's pin, `forky`, `amd64`, `main`,
 `20261016T091523Z`).
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=a_recorded_resolution_prints_known_and_the_layer_keys)'`: a laid record
 prints `known` with its layer keys. Bound: 0.5 s.
 Don't: run mmdebstrap; recompute a record's `digest` (33.2's scan did, store.md
@@ -274,7 +274,7 @@ fn an_unreachable_mirror_fails_the_resolution_as_mmdebstraps_and_exits_75() {
     assert!(fixtures::listed(&r.scratch().join("store/staging")).is_empty(), "5.2");
 }
 ```
-Proof: live, `heavy cargo nextest run -p hearth-builder-world --profile
+Proof: live, `cargo nextest run -p hearth-builder-world --profile
 conformance -E 'binary(=conformance_render)'` once on the run's machine: real
 mmdebstrap fails on an unreachable mirror, exit 75, the scratch gone. Bound: 10
 s; unit, in the gate,
@@ -430,10 +430,10 @@ None.
    crates/hearth-domain-render/src/ crates/hearth-protocol-builder/src/
    crates/hearth-protocol-builder/src/translate/ | grep -c -x -E
    '.*/(keys|resolution|resolve|indices)\.rs'` prints 5.
-3. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run -p
+3. Once, in a worktree of hearth at `origin/main`: `cargo nextest run -p
    hearth-domain-render -p hearth-domain-store -p hearth-domain-builder -p
    hearth-protocol-builder -p hearth-client-protocol-records -p
    hearth-builder-world -p hearth` passes.
-4. Once, on the run's machine, in that worktree: `heavy cargo nextest run -p
+4. Once, on the run's machine, in that worktree: `cargo nextest run -p
    hearth-builder-world --profile conformance -E 'binary(=conformance_render)'`
    passes, its `Summary` naming 2 tests, within the profile's 2 minutes.

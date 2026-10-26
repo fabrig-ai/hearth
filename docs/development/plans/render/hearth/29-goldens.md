@@ -408,8 +408,8 @@ None.
    grep -c -x -E 'tests/render/(fleet|merge|templates|exports|cluster|errors)'`
    prints 6, and `git -C ~/src/rust/hearth ls-tree -r --name-only origin/main
    tests/render/resolution | grep -c expected` prints at least 2.
-3. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run
+3. Once, in a worktree of hearth at `origin/main`: `cargo nextest run
    -p hearth-render-world -p hearth-builder-world -E 'test(/golden|merge|templates|fleet|cluster|exports|errors|resolution/)'` passes, and
-   `HEARTH_BLESS=1 heavy cargo nextest run -p hearth-builder-world -E
+   `HEARTH_BLESS=1 cargo nextest run -p hearth-builder-world -E
    'test(/^merge_/)'` fails with "blessed" while `git status --porcelain
    tests/render` prints nothing.

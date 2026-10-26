@@ -422,7 +422,7 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-22\.[1-4]'` prints 4.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run -p hearth-domain-render -p hearth-protocol-builder -p hearth-client-protocol-records -p hearth-render-world -p hearth-builder-world` passes.
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run -p hearth-domain-render -p hearth-protocol-builder -p hearth-client-protocol-records -p hearth-render-world -p hearth-builder-world` passes.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main crates/hearth-domain-render/src/ | grep -c -x -E 'crates/hearth-domain-render/src/(collisions|additions)\.rs'` prints 2.
 4. `git -C ~/src/rust/hearth grep -n -E 'left_out: 0' origin/main -- crates/hearth-domain-render/src crates/hearth-protocol-builder/src ':!*/tests/*' ':!*/tests.rs'` prints nothing.
 5. `git -C ~/src/rust/hearth grep -n 'transitional: hearth 22' origin/main -- crates` prints nothing.

@@ -410,9 +410,9 @@ None.
 ## Done when
 
 1. `git log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-15\.[1-4]'` prints 4.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run -p hearth-domain-render -p
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run -p hearth-domain-render -p
    hearth-protocol-builder -p hearth-client-protocol-records -p hearth-render-world -p
-   hearth-builder-world` passes, and `heavy cargo nextest run -p hearth-render-world --profile fuzzy`
+   hearth-builder-world` passes, and `cargo nextest run -p hearth-render-world --profile fuzzy`
    passes.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main
    crates/hearth-protocol-builder/src/translate/` lists `instructions.rs`.

@@ -93,7 +93,7 @@ says what it does (hearth 24 and 31 call it: hearth 33, "What hearth 24 calls").
 - **The meeting point** (README, Rules): each increment proves on the real
   loop, `hearth render` through real git in `tests/builder`; the store's own
   world is M2's (store.md, 11).
-- **Upstream first:** 23.1 starts with its repin commit, `heavy cargo update -p
+- **Upstream first:** 23.1 starts with its repin commit, `cargo update -p
   skein-lib`, onto a skein `origin/main` holding skein 04 and 05; the repin's users
   of 04.1's `Rename` (hearth 32.1's `cache.rs`) take `from_root` and `to_root`
   in that commit.
@@ -215,7 +215,7 @@ Then `the_first_render_records_the_store_as_layout_1_of_its_user` (read back by
 `a_second_render_keeps_the_store_record_it_found` (the bytes equal),
 `an_unreadable_store_record_is_written_again` (a frame of version 2, made by
 changing one byte of a written record).
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=a_render_over_a_locked_store_waits_then_renders_once_it_is_released)'`:
 the real loop asks for the store's lock, waits while another open of the
 directory holds it, and renders THIN once it is free. Bound: 0.5 s.
@@ -293,7 +293,7 @@ is D1 (`01…01`) with `a.record` written by `cache_file::write`, `b` D2 alone,
 after `hearth render` of THIN, `cache/` lists exactly `a`, `a.record`, `notes`
 and THIN's two files),
 `the_scan_removes_the_store_records_temporary`.
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=the_scan_settles_what_a_crash_left_in_the_cache)'`: on the real ring, a
 store a crash left is settled as 4.4 says before render reads. Bound: 0.5 s.
 Don't: read a cache file's record; sort a page or hold more than one; remove a
@@ -417,11 +417,11 @@ None.
 2. `git -C ~/src/rust/hearth ls-tree --name-only origin/main
    crates/hearth-domain-store/src/` lists `index.rs`, `lib.rs`, `limits.rs`,
    `scan.rs`, `start.rs`, `tests`, `tests.rs` and `vocabulary.rs`; in a
-   worktree at `origin/main`, `heavy cargo tree -p hearth-domain-store -e
+   worktree at `origin/main`, `cargo tree -p hearth-domain-store -e
    normal --depth 1` prints three: `hearth-domain-store`, `hearth-lib`,
    `skein-lib`.
-3. In that worktree, once: `heavy cargo nextest run -p hearth-domain-store -p
+3. In that worktree, once: `cargo nextest run -p hearth-domain-store -p
    hearth-builder-world -E 'package(hearth-domain-store) | binary(=store)'`
-   passes, its `Summary` naming at least 17 tests; and `heavy cargo nextest run
+   passes, its `Summary` naming at least 17 tests; and `cargo nextest run
    -p hearth-domain-builder -p hearth-protocol-builder -p
    hearth-client-protocol-records -p hearth-builder-world -p hearth` passes.

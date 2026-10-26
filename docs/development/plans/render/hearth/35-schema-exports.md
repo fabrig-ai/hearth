@@ -197,7 +197,7 @@ that decode of `TASKS`' 25 rows; `checks-ssh` and `artifact-stoa` are refused
 as `Later`, and it asserts so)
 and `generated_declarations_hand_up_each_string_where_it_was_written` (32
 seeds, under 0.5 s); `tests/fuzzy_declarations.rs`, about 2 s: `const ROUNDS:
-u64` is chosen once so that this test alone takes about 2 s (`heavy cargo
+u64` is chosen once so that this test alone takes about 2 s (`cargo
 nextest run -p hearth-config-world --profile fuzzy -E
 'binary(fuzzy_declarations)'`; `fuzzy_documents` takes 0.5 to 0.8 s more), and `FIRST_SEED` is `0x0035_F000`:
 ```rust
@@ -299,9 +299,9 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-35\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest
    run -p hearth-protocol-config -p hearth-config-world` passes, and
-   `heavy cargo nextest run -p hearth-config-world --profile fuzzy -E
+   `cargo nextest run -p hearth-config-world --profile fuzzy -E
    'binary(=fuzzy_declarations)'` passes, its `Summary` naming 1 test.
 3. `git -C ~/src/rust/hearth grep -n -w Undecoded origin/main --
    crates/hearth-protocol-config/src` prints nothing, and `git -C

@@ -356,7 +356,7 @@ None.
 
 1. `git -C ~/src/rust/hearth ls-tree -d --name-only origin/main
    testing/hearth-fake-mmdebstrap | wc -l` prints 1.
-2. In a worktree at `origin/main`, `heavy cargo nextest run -p
+2. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-fake-machine -p hearth-fake-mmdebstrap` passes, its `Summary`
    naming at least 66 tests (hearth 26's 39 there, this session's 27).
 3. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-27\.[1-3]'` prints 3.

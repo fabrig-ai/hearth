@@ -122,7 +122,7 @@ target padded to column 52, as the reference) `an_added_target_prints_added_spec
 (the tally keeps `targets` above `changed + unchanged`), `hunk_lines_left_out_print_their_count` (`...
 5 lines left out` at the hunk indent). Each under 20 ms.
 Proof: unit layer: hearth 25's `hearth diff` connects it, at the process
-layer. Run once: `heavy cargo nextest run -p hearth-client-protocol-records
+layer. Run once: `cargo nextest run -p hearth-client-protocol-records
 -E 'test(=tests::diff::a_changed_file_prints_its_hunks_as_render_md_shows)'`.
 Don't: compute a text diff or a tally; add another part's change.
 Size: at most 280 lines.
@@ -187,7 +187,7 @@ fold (hearth 25).
 Proof: unit layer: hearth 12 connects its first kind on the thin story's
 path (a broken document, printed by `hearth render`); hearth 16 the
 guard; hearth 32.2's binary the `startup` record on standard error. Run
-once: `heavy cargo nextest run -p hearth-client-protocol-records -E
+once: `cargo nextest run -p hearth-client-protocol-records -E
 'test(=tests::errors::a_false_guard_prints_as_render_md_shows)'`.
 Don't: sort, bound or count errors (render does, 7.1); add a kind but
 `guard`; print an `outcome` line after a `startup` record.
@@ -260,6 +260,6 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-40\.[1-2]'` prints 2.
-2. In a worktree at `origin/main`, `heavy cargo nextest run -p
+2. In a worktree at `origin/main`, `cargo nextest run -p
    hearth-client-protocol-records` passes, its `Summary` naming at least
    43 tests.

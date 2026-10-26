@@ -1,8 +1,6 @@
 # Status
 
-Updated 2026-10-19. How far hearth's code is from its design, and the
-work that takes it there. Owners keep the rows their work changes
-(agents' `roles/owners.md`, 4.4).
+Updated 2026-10-19. How far hearth's code is from its design.
 
 ## 1. Plans
 

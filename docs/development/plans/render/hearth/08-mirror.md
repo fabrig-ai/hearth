@@ -65,7 +65,7 @@ mirror of their own.
   comments: `archive`, `suite`, `architecture`, `components` (`main`
   first), `digest`, and `target <name> <variant> <package>…` per target, its
   packages in strictly increasing byte order. `fetch --pin` writes `archive`
-  and `digest`; the implementer writes the rest.
+  and `digest`; the author writes the rest.
 - **The mirror digest at M1 is `InRelease`'s SHA-256** (testing.md 6.2), kept
   in the pin, so a run names its directory before it fetches.
 - **The cache:** `$XDG_CACHE_HOME/hearth-test-mirror/<digest>/`
@@ -243,7 +243,7 @@ listing's URL that names `<archive>` (or the month's index), the
 `InRelease` (about 150 KB) and `Packages.xz` (about 10 MB) URLs that
 snapshot.debian.org serves them at, their total and the directory; then `unshare --map-root-user --net testing/mirror/fetch` once
 prints `present: <that directory>` and exits 0, with no network to reach;
-then `heavy cargo nextest run -p hearth-test-mirror` passes. Bound: 5 min;
+then `cargo nextest run -p hearth-test-mirror` passes. Bound: 5 min;
 one run reaching snapshot.debian.org, two files and at most two listings.
 The commit's trailers give the runs and the bytes the script printed, the
 two failed runs counted: `Fetch-Runs: 3`, and `Fetch-Bytes:`

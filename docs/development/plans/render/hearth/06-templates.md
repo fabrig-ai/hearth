@@ -195,7 +195,7 @@ The world gives:
 `check::template` on each `Ok`, seeds from `0x0006_F000`, and
 `assert_fell(&fell, fixtures::TEMPLATE_KINDS)`: 5,000 rounds, about 2 s.
 Proof: world, the highest this crate reaches: nothing calls
-`template::compile` until hearth 15. `heavy cargo nextest run -p
+`template::compile` until hearth 15. `cargo nextest run -p
 hearth-template-world --profile fuzzy -E 'test(/templates/)'`, once,
 shows each generated template compiling to the reference's instructions
 at template offsets, and each refusal at its offset. Bound: 3 s.
@@ -295,8 +295,7 @@ The generator nests statements to the shape's depth, uses `loop.index`,
 pool that `mutate` widens with the roots, and never writes an
 unparenthesized conditional after `in` (format.md 7.3). `check::template` adds: each
 `Advance` goes back to just after its `Enter`, which skips just past it.
-Proof: world; nothing calls `template::compile` until hearth 15. `heavy
-cargo nextest run -p hearth-template-world --profile fuzzy`, once, shows
+Proof: world; nothing calls `template::compile` until hearth 15. `cargo nextest run -p hearth-template-world --profile fuzzy`, once, shows
 conditions, loops and assignments compiling as the reference compiles
 them, each new refusal at its offset. Bound: 3 s.
 Don't: check what a name is bound to, or what a loop iterates over
@@ -396,8 +395,8 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-06\.[1-2]'` prints 2.
-2. In a worktree of hearth at `origin/main`, `heavy cargo nextest run -p
-   hearth-protocol-template -p hearth-template-world` and `heavy cargo
+2. In a worktree of hearth at `origin/main`, `cargo nextest run -p
+   hearth-protocol-template -p hearth-template-world` and `cargo
    nextest run -p hearth-template-world --profile fuzzy` each pass, once.
 3. `git -C ~/src/rust/hearth grep -n 'pub fn compile' origin/main --
    crates/hearth-protocol-template/src ':!*/tests/*' ':!*/tests.rs' | wc -l`

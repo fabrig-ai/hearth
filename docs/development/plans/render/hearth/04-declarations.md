@@ -273,7 +273,7 @@ const table of each example's maps and entry counts, as literals (counted once
 from each example by eye and pasted: `ssh` files 2, `stoa` files 2, live
 1, presets 1, software 1, and so on for all 14), 8 seeds each, under 0.5
 s; and `the_m5_and_m6_examples_are_refused_at_their_keys` (`checks` at
-`at(2, 1, 3)`, `artifact` at `at(38, 4, 7)`; the implementer recomputes
+`at(2, 1, 3)`, `artifact` at `at(38, 4, 7)`; the author recomputes
 both from the two files, whose indentation it removed).
 Proof: world,
 `every_entry_example_decodes_to_its_entries_cut_anywhere`: format.md's
@@ -384,7 +384,7 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-04\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest
    run -p hearth-protocol-config -p hearth-config-world` passes.
 3. `git -C ~/src/rust/hearth grep -n hearth-protocol-template origin/main
    -- crates/hearth-protocol-config/Cargo.toml` prints nothing.

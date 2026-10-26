@@ -2,8 +2,8 @@
 
 skein f981746 by path (`~/src/rust/tmp/plan/hearth-render-skein`, no skein change), hearth 175e92f, scratch
 worktree `~/src/rust/tmp/plan/hearth-render-scratch/B4-hearth` (members `scratch/*`, `libc = "0.2.186"` in
-`[workspace.dependencies]`; the one `heavy cargo fetch` resolved libc 0.2.191). `H` is `git -C ~/src/rust/hearth`.
-Every sketch compiled with `heavy cargo clippy -p <crate> --all-targets -- -D warnings`; final run of all nine
+`[workspace.dependencies]`; the one `cargo fetch` resolved libc 0.2.191). `H` is `git -C ~/src/rust/hearth`.
+Every sketch compiled with `cargo clippy -p <crate> --all-targets -- -D warnings`; final run of all nine
 crates in one command: exit 0, `Finished dev profile`.
 
 Scratch crates: `h01` (stub of hearth 01's `Digest`, `Item`), `s09` (09 and 39.1's two functions), `w39` (39's world
@@ -17,8 +17,8 @@ them: defect, fixed); the private `Open`, `Lines`.
 ## hearth 09
 - `H log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | grep -c -x -E 'hearth-09\.[1-3]'` (Done 1), exit 1, prints `0`: as the plan says before the session.
 - `H grep -n -F 'hearth\0r' origin/main -- crates` (Done 3), exit 1, nothing: parses; at ready for the one line.
-- `heavy cargo nextest list -p scratch-s09 -E 'test(a_framed_body_has_the_header_store_md_gives_byte_for_byte)'`, exit 0, lists `tests::frame::a_framed_body...`: the Proof's filter form works.
-- `heavy cargo tree -p scratch-s09 -e normal --depth 1`, exit 0, prints the crate, hearth-lib, skein-lib: Done 3's three lines (shape only); the nextest counts (Done 2, 28 tests) counted by name: 8 + 10 + 10 = 28, as the plan says; at ready.
+- `cargo nextest list -p scratch-s09 -E 'test(a_framed_body_has_the_header_store_md_gives_byte_for_byte)'`, exit 0, lists `tests::frame::a_framed_body...`: the Proof's filter form works.
+- `cargo tree -p scratch-s09 -e normal --depth 1`, exit 0, prints the crate, hearth-lib, skein-lib: Done 3's three lines (shape only); the nextest counts (Done 2, 28 tests) counted by name: 8 + 10 + 10 = 28, as the plan says; at ready.
 - Sketch limits.rs, frame.rs and decode.rs, store/cache_file/resolution: compiled (`s09`). Defect, fixed: the sketch doc "its line's InRelease first" fails `doc_markdown`; now in backticks.
 - Reference tests 09.1 and 09.2 compiled. Defect, fixed: 09.1's assert message `map { \"a\": uint 1 }` is an invalid format string; now `{{ ... }}`. By hand: 09.1's frame header 28 = 0x1c and 09.2's store body 76 = 0x4c bytes are right; 09.2's cache-file body is 224 bytes (computed), key order at, origin, sha256, size, took; 0x186cc6acd4b00000 is 1_760_000_000_000_000_000.
 
@@ -31,7 +31,7 @@ them: defect, fixed); the private `Open`, `Lines`.
 ## hearth 10
 - Done 1: exit 1, `0`. Done 3 `H grep -n -E 'CLIENT_VERSION: u32 = 1' origin/main -- crates`: exit 1, nothing: parses.
 - Done 2 (20 tests) counted: 8 + 9 + 3 = 20, as the plan says.
-- Three Proof commands `test(=<name>)` on unit tests: `heavy cargo nextest run -p scratch-s10 -E 'test(=a_spec_prints_its_meta_and_config_as_render_md_shows)'` exit 4, `no tests to run` (name is `tests::text::...`). Defect, fixed: `test(=tests::text::...)`, `tests::printer::...`, `tests::text::...`.
+- Three Proof commands `test(=<name>)` on unit tests: `cargo nextest run -p scratch-s10 -E 'test(=a_spec_prints_its_meta_and_config_as_render_md_shows)'` exit 4, `no tests to run` (name is `tests::text::...`). Defect, fixed: `test(=tests::text::...)`, `tests::printer::...`, `tests::text::...`.
 - Sketches (lib, limits, records, parts, outcome, form, printer, 10.3's): compiled (`s10`) and four reference tests. Defect, fixed: once 10.3 adds `resolution`, `Record::Spec(Spec)` is a 336-byte variant against 1 (clippy `large_enum_variant`, as does `printer::Request`; `Option<Box<Resolution>>` still 208 > 200). Now `Spec(Box<Spec>)` and `x1_prod() -> Box<Spec>` (the references unchanged). Users: `20-exports.md:176` writes `Record::Spec(spec)` (not my file; reported).
 - skein `crates/skein-http/src/sse/writer.rs` and its tests' `Machine` at `src/tests/writer.rs:22`: as cited. `skein_json::writer::Encoder`, `Limits { depth, length }`: exist.
 
@@ -58,7 +58,7 @@ them: defect, fixed); the private `Open`, `Lines`.
 ## Compile pass, planner-9 (2026-10-17)
 
 Blocks of 09 (5), 39 (4), 10 (5), 40 (3), 11 (3), 32 (2) compared with the scratch crates (B4-hearth), then
-`heavy cargo clippy --workspace --all-targets -- -D warnings`: exit 0 (8 crates: h01, s09, s10, s11, s11h, s40, w11, w39).
+`cargo clippy --workspace --all-targets -- -D warnings`: exit 0 (8 crates: h01, s09, s10, s11, s11h, s40, w11, w39).
 Re-synced: s10 (10.2's json test: the `meta` and `config` lines, verbatim; two doc comments), s40 (40.1's diff test:
 its three hunk lines; the `Unopened` doc), w11 (32.2's `end_to_end_render`: `HOME` is `repository.scratch()`).
 09, 39, 11 and 32 already as the blocks say (11's and 32's sketches share crates s11 and s11h, 32's grown forms).

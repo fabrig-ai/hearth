@@ -204,11 +204,11 @@ None.
 
 ## Done when
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-31\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run -p
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run -p
    hearth-domain-render -p hearth-domain-store -p hearth-domain-builder -p
    hearth-protocol-builder -p hearth-client-protocol-records -p
    hearth-builder-world -p hearth-service-builder -p hearth-render-world -p
    hearth` passes.
-3. Once, on the run's machine, in that worktree: `heavy cargo nextest run -p
+3. Once, on the run's machine, in that worktree: `cargo nextest run -p
    hearth-builder-world --profile conformance -E 'binary(=conformance_render)'`
    passes, its `Summary` naming 5 tests, within the profile's 2 minutes.

@@ -82,7 +82,7 @@ hearth 09's decoder takes the value model, hearth 11's spec digest `H`.
   `grep -o 'skein.git#[0-9a-f]*' Cargo.lock | sort -u` prints one commit,
   which `git -C ~/src/rust/skein merge-base --is-ancestor 0f093bb <it>`
   accepts. If it does not, 01.2 starts with a repin commit of its own,
-  `heavy cargo update -p skein-lib`.
+  `cargo update -p skein-lib`.
 - **Format versions** (README, Rules): the tag `hearth/1` is 01.2's, at
   1; nothing here changes it or 3.1's encoding (store.md, 3.2). Test
   digests are store.md 3.2's literals, pasted (code-organization.md, 6).
@@ -193,7 +193,7 @@ The `_is_a_bug` tests drive an `Encoder::measuring()` by hand under
   `none`, measures 577 bytes (64 × 9 + 1): an export's value as deep as
   render.md 2.3's JSON allows, inside its part, is no bug (Choices).
 
-Proof: unit, the only one that reaches the crate: `heavy cargo
+Proof: unit, the only one that reaches the crate: `cargo
 nextest run -p hearth-lib -E
 'test(a_list_of_texts_encodes_as_store_md_writes_it)'`, once: store.md
 3.2's first vector, byte for byte, measured then written. Nothing above
@@ -260,7 +260,7 @@ fn h_of_empty_is_the_digest_store_md_gives() {
 
 The `3f4edef7…` prefix is not a test: no correct encoder makes it.
 
-Proof: unit, the only one: `heavy cargo nextest run -p
+Proof: unit, the only one: `cargo nextest run -p
 hearth-lib -E 'test(h_with_staffs_gid_absent_matches_store_md)'`, once:
 `8291ea66…`, a digest that rests on 3.1's keys and absent fields,
 through skein's SHA-256. Nothing above calls `H` until hearth 11:
@@ -399,7 +399,7 @@ store.md 3.1 and 3.2 leave nothing open here. Raise only:
 
 - This prints 2, from hearth's root:
   `git log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-01\.[12]'`
-- In a worktree of hearth at `origin/main`, once, `heavy cargo nextest
+- In a worktree of hearth at `origin/main`, once, `cargo nextest
   run -p hearth-lib` prints a `Summary` line with 22 tests passed and
   none failed.
 - `git -C ~/src/rust/hearth grep -n -F 'b"hearth/1"' origin/main --

@@ -67,13 +67,12 @@ calls the machine until hearth 11's protocol layer routes it.
 
 ## Rules that bind it
 
-- **Upstream first:** 03.1 starts with a repin commit, `heavy
-  cargo update -p skein-lib`, after `git -C ~/src/rust/skein fetch origin`; `grep -o 'skein.git#[0-9a-f]*' Cargo.lock | sort
+- **Upstream first:** 03.1 starts with a repin commit, `cargo update -p skein-lib`, after `git -C ~/src/rust/skein fetch origin`; `grep -o 'skein.git#[0-9a-f]*' Cargo.lock | sort
   -u` then prints one commit, which `git -C ~/src/rust/skein merge-base
   --is-ancestor <L> <it>` accepts, `<L>` being `git -C ~/src/rust/skein
   log origin/main --all-match --grep='^Plan: render$'
   --grep='^Step: skein-02\.' --format=%H -1`. With no skein in `Cargo.lock` yet, no repin
-  commit: the crate's first `heavy cargo check` pins it.
+  commit: the crate's first `cargo check` pins it.
 - **No recursion (a review guide: clippy lints only `Vec`, `String`); the
   shipped limits:** open containers live in a
   `skein_lib::Stack` of `Limits::depth`; tests take `limits::SHIPPED`, or
@@ -183,7 +182,7 @@ where the reference first finds no JSON, whose error and position skein
 fractions, i64's edges, `\u0000`, `_note`s, CRLF); `fixtures::{Seen,
 at_the_limits, metered}`. Focused tests under 0.5 s, under 1 s in all
 (development.md, 5.3); the sweep about 5 s, `ROUNDS` set once by the
-measure profile: `heavy cargo nextest run -p hearth-config-world --profile
+measure profile: `cargo nextest run -p hearth-config-world --profile
 measure -j 1 --ignore-default-filter -E 'binary(fuzzy_documents)'` once,
 `ROUNDS` the largest value that ran in 5 s or less, never re-measured.
 ```rust
@@ -403,9 +402,9 @@ None.
 ## Done when
 
 - `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-03\.[1-4]'` prints 4.
-- Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest
+- Once, in a worktree of hearth at `origin/main`: `cargo nextest
   run -p hearth-protocol-config -p hearth-config-world` passes, and
-  `heavy cargo nextest run -p hearth-config-world --profile fuzzy`
+  `cargo nextest run -p hearth-config-world --profile fuzzy`
   passes, its `Summary` naming at least 1 test.
 - `git -C ~/src/rust/hearth grep -n -w Reserved origin/main --
   crates/hearth-protocol-config/src` prints nothing; `git -C

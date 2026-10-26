@@ -215,8 +215,7 @@ layer.
     ':!*/tests.rs' ':!*/tests/*' | awk '{a+=$1} END {print a}'`.
 
   `tests/` (worlds), goldens, recordings and the test repositories are
-  not counted. Each landing's report gives the number (implementer.md,
-  8.6).
+  not counted. Each landing's report gives the number.
 - **Within twice its Size** an increment lands without asking; a decoder
   or a document increment (a machine's decoder, a record's codec, a
   schema) within 2.5 times it; a split increment's parts count together.

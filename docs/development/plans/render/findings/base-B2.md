@@ -9,9 +9,9 @@ Stubs (no owner sketch): Position/skein 02 (absent at f981746), fixtures, genera
 - Done when 2 (`log ... | grep -c -x -E 'hearth-02\.[1-3]'`): exit 1, prints 0; runs.
 - `echo $((65536*4096))`: 268435456 (256 MiB: the paths alone reach the plan's 256 MiB).
 - Real git 2.47.3, scratch repos: rev-parse, `ls-tree -r -l -z --full-tree` (padded 7, `-` submodule), `cat-file --batch` (`<oid> missing`), `a..a` two lines exit 1: all as the plan says.
-- `heavy cargo clippy -p scratch-s02 --all-targets -- -D warnings`: first exit 101 (`Iterator::map` disallowed in the listing test); DEFECT, fixed (for loop). Then exit 0.
+- `cargo clippy -p scratch-s02 --all-targets -- -D warnings`: first exit 101 (`Iterator::map` disallowed in the listing test); DEFECT, fixed (for loop). Then exit 0.
 - `... -p scratch-s02w ...` (world test, stubs `generate`, `world`, `fixtures::SMALL`): exit 0.
-- `heavy cargo nextest run -p hearth-git-world -E 'binary(memory)'`: at ready (filter parses with a binary `memory`).
+- `cargo nextest run -p hearth-git-world -E 'binary(memory)'`: at ready (filter parses with a binary `memory`).
 - kernel.rs:523 cited for `Spawn::args`: it is :525; DEFECT, fixed.
 ## 34
 - Done when 1/2/3/5: exit 0/0/1/1, print 0 (nothing), run.
@@ -22,7 +22,7 @@ Stubs (no owner sketch): Position/skein 02 (absent at f981746), fixtures, genera
 - Sketches `scratch-s34` (hunks, Limits growth): defect, fixed (`NoNewline` needs backticks, doc_markdown); `scratch-s34w` (conformance test): exit 0.
 ## 03
 - Done when 1 and 3 greps: exit 1, print 0 / nothing; run. `git log origin/main --all-match --grep ... --grep '^Step: skein-02\.'`: prints nothing (skein 02 not landed); `merge-base --is-ancestor`, `grep -o 'skein.git#...' | sort -u`: parse.
-- `heavy cargo clippy -p scratch-s03 ...` (all sketches, both unit tests): exit 0. `-p scratch-s03w` (world, memory, fuzzy tests): exit 0.
+- `cargo clippy -p scratch-s03 ...` (all sketches, both unit tests): exit 0. `-p scratch-s03w` (world, memory, fuzzy tests): exit 0.
 - 35.2 premise "03's `json::worst_case` covers `declaration`": does not (new boxes while the `Value` is held); DEFECT, fixed in 35.2.
 - Filters `binary(fuzzy_documents)` with `--profile measure -j 1 --ignore-default-filter`: parse and pass on a scratch binary.
 ## 07
@@ -30,27 +30,27 @@ Stubs (no owner sketch): Position/skein 02 (absent at f981746), fixtures, genera
 - Vector run for real, offline (`unshare --user --map-user=$(id -u) --net`, not a live run): mmdebstrap 1.5.7 accepts the 5.2 vector, exits 25 with `Err:1`/`E: Failed to fetch ... Temporary failure resolving`; matches 07.3's patterns.
 - apt 3.0.3 on trixie lists: `Unable to locate package`, `Package '...' has no installation candidate`, `unmet dependencies` / `Unable to correct problems` wording, `Inst` line form: as 07.3 says; `--variant=apt` closure 69 packages (> 50).
 - `Acquire::Languages "none"` set by mmdebstrap (two files at the fetch).
-- `heavy cargo clippy -p scratch-s07 -p scratch-s07w ...`: exit 0 (limits, vector, output, tail, three tests, world test).
+- `cargo clippy -p scratch-s07 -p scratch-s07w ...`: exit 0 (limits, vector, output, tail, three tests, world test).
 - 38's real-list check changed `Limits::stanza` default: see 38.
 ## 38
 - Done when: exit 1, prints 0; at ready.
 - Real trixie `Packages` (149,228 stanzas, local apt lists): six fields once each on one line, Version/Package/Filename/SHA256 forms hold, 0 violations; but the longest stanza is 76,338 bytes (`librust-winapi-dev`, one `Provides` line of 75,649): DEFECT, 64 KiB refuses a real list. Fixed: 07 `SHIPPED.stanza` 1 MiB, 38.1 tests, `[Q?]` added. Apt keeps lists uncompressed here.
-- `heavy cargo clippy -p scratch-s38 -p scratch-s38w ...`: exit 0.
+- `cargo clippy -p scratch-s38 -p scratch-s38w ...`: exit 0.
 ## 08
 - Done when 1-4: exit 0/1/0/1, print 0, error `path does not exist`, empty, 0; run in a scratch repo with a pin and trailers: 4/2/1..3 sums as the plan says.
 - sha256 of `signed\n` and `xz\n` equal the fixture constants. `sqv --keyring ... --cleartext --output`, `awk` entries from a signed InRelease, `xz`, `curl`, `sh` (dash): work. `unshare --map-root-user --net true` exit 0.
 - Not run: `testing/mirror/fetch` and any curl to snapshot.debian.org (the plan runs them at 08.2, not at the base).
-- `heavy cargo clippy -p scratch-s08 ...` (kit, all four tests): first exit 101: `missing_errors_doc` on the kit's `Result` fns; DEFECT, fixed in Choices (`missing_errors_doc = "allow"`). Then exit 0.
+- `cargo clippy -p scratch-s08 ...` (kit, all four tests): first exit 101: `missing_errors_doc` on the kit's `Result` fns; DEFECT, fixed in Choices (`missing_errors_doc = "allow"`). Then exit 0.
 ## 41
 - Done when 1, 2, 4: exit 0/1/1, print 0; run. `git grep -n -F 'Recording {' -- testing tests`: exit 1, nothing.
 - Trixie lists: test-boot's ten names, both MTAs (providing and conflicting), `mail-transport-agent` virtual only, no `hearth-absent`: as the plan says.
-- `heavy cargo clippy -p scratch-s41 ...` (resolve.rs, run.rs, kit fields, test): exit 0.
-- `HEARTH_RECORD=1 heavy cargo nextest run -p hearth-conformance-world --profile conformance -E 'binary(=conformance_resolve)'`: at ready.
+- `cargo clippy -p scratch-s41 ...` (resolve.rs, run.rs, kit fields, test): exit 0.
+- `HEARTH_RECORD=1 cargo nextest run -p hearth-conformance-world --profile conformance -E 'binary(=conformance_resolve)'`: at ready.
 
 ## Compile pass, planner-9 (2026-10-17)
 
 Every sketch block of the seven session files compared line by line with its
-scratch crate and re-synced (scratch worktree `B2-hearth`); then `heavy cargo clippy
+scratch crate and re-synced (scratch worktree `B2-hearth`); then `cargo clippy
 --workspace --exclude scratch-filters --all-targets -- -D warnings` in it: exit 0.
 - 02: `scratch-s02`, `scratch-s02w` (and `scratch-s34`, which carries 02's blocks too): `Command::Diff` doc now says `--git-dir=/dev/null`; exit 0.
 - 34: `scratch-s34`, `scratch-s34w`: `Kind` doc cites render.md 6.1, 8.2; exit 0.

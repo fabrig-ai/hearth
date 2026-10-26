@@ -99,10 +99,6 @@ directory being the cursor. hearth 23 waits for this session and skein
   testing/skein-fake-machine/src`: a match, it adds `pending_moves` to
   that digest, with a test that a pending move changes it; none, skein
   03.3 digests it with the rest.
-- **The gate** (README, Rules; decisions.md, 1): each increment lands with `flock
-  ~/src/rust/tmp/hearth/render/land-skein.lock land --gate '<the README's
-  command, whole>'`, its commit body saying so in one line; no probe of
-  the machine. No `skein-ui-web` code changes.
 - **Test time** (README, Rules; `findings/measurements.md`): focused
   6.46 s and fuzzy 41.84 s at the base; this session's allotment is 0.4 s
   and 1.5 s (skein 02: 0.4 s / 1 s; 03: 0.3 s / 0.5 s; 04: 0.4 s / 1.5 s;
@@ -204,7 +200,7 @@ Test shape:
 
   and `a_rename_across_recovers_in_its_destination_once_that_is_synced`.
 - The real ring, as `ring.rs:194`: `a_rename_across_over_the_ring_lands_the_file_in_its_destination`.
-Proof: process, io on the real kernel: `heavy cargo nextest run
+Proof: process, io on the real kernel: `cargo nextest run
 -p skein-io-world -E 'test(=a_rename_across_over_the_ring_lands_the_file_in_its_destination)'`,
 once: the bytes std laid in a scratch directory's `staging/index` are
 read back by std from `cache/index`, and `staging` is empty. Bound: 1 s.
@@ -269,7 +265,7 @@ Test shape:
   `a_page_of_max_entries_stays_within_file_ios_worst_case` (`max` =
   `ENTRIES`: the bound held unchanged).
 - The real ring: `a_directory_listed_by_pages_over_the_ring_gives_each_entry_once`.
-Proof: process: `heavy cargo nextest run -p skein-io-world -E
+Proof: process: `cargo nextest run -p skein-io-world -E
 'test(=a_directory_listed_by_pages_over_the_ring_gives_each_entry_once)'`,
 once: ten files std made in a scratch directory reach the owner over the
 real ring in pages of 4, 4 and 2, each name once. Bound: 1 s. hearth
@@ -328,12 +324,12 @@ None.
 ## Done when
 
 Each command once, reading skein's `origin/main` (the last in a worktree
-of it, through `heavy`):
+of it):
 
 ```sh
 git -C ~/src/rust/skein log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'skein-04\.[12]'
 git -C ~/src/rust/skein grep -n -E '^    ListPage \{$|^        from_root: Fd,$' origin/main -- crates/skein-io/src/file.rs
-heavy cargo nextest run -p skein-io-world -E 'test(=a_rename_across_over_the_ring_lands_the_file_in_its_destination) | test(=a_directory_listed_by_pages_over_the_ring_gives_each_entry_once)'
+cargo nextest run -p skein-io-world -E 'test(=a_rename_across_over_the_ring_lands_the_file_in_its_destination) | test(=a_directory_listed_by_pages_over_the_ring_gives_each_entry_once)'
 ```
 
 The first prints 2; the second 2 lines, file.rs's `ListPage` and

@@ -16,24 +16,15 @@ NEXTEST_DOUBLE_SPAWN=0 cargo nextest run --workspace
 NEXTEST_DOUBLE_SPAWN=0 cargo nextest run --workspace --profile fuzzy
 ```
 
-agents' `land` (agents' `roles/owners.md`, 4.4) does
-it all from a clean worktree on the branch: it rebases on `origin/main`,
-runs the gate through the machine's queue, records its result in the tip
-commit's trailers, and pushes the tip to `origin`'s `main`, which only
-fast-forwards. The local `main` follows.
-
 A branch that changes only Markdown files (the documents under `docs/`,
 `AGENTS.md`) skips the gate, since nothing it touches is built or tested,
-and lands with `land --docs`. Doc comments in `.rs` files are not
+and may be merged without those checks. Doc comments in `.rs` files are not
 documentation in this sense: they are code, and clippy checks them.
 
 Two things the gate does until the workspace grows:
 
 - **With no crate,** cargo refuses every one of the four commands, so the
-  gate says that there is nothing to check and passes. `land`'s build
-  lane runs three of them before the gate, so a branch that lands
-  something other than Markdown while no crate exists lands with
-  `LAND_PREBUILD= land`. The first crate ends both.
+  gate says that there is nothing to check and passes.
 - **Until the first world's fuzzy test lands** (`tests/*/tests/fuzzy_*.rs`),
   the fuzzy profile selects `none()` and the default profile every test:
   nextest refuses a filter that names a binary no crate has. The fuzzy

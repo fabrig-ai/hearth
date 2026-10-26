@@ -68,7 +68,7 @@ kit and the scenario.
   profile "with its first test, and its binaries join the default and
   fuzzy profiles' exclusions in the same landing"; "never in the gate".
 - **No hand-written recording** (code-organization.md, 6): each file under
-  `testing/recordings/git/` comes from `HEARTH_RECORD=1 heavy cargo nextest
+  `testing/recordings/git/` comes from `HEARTH_RECORD=1 cargo nextest
   run --workspace --profile conformance`; a renamed case's old directory
   goes in the same landing.
 
@@ -270,7 +270,7 @@ None.
    version directory, at least 18 (hearth 44.3 adds).
 3. `git -C ~/src/rust/hearth show origin/main:.config/nextest.toml |
    grep -c -F 'binary(/^conformance_/)'` prints 4.
-4. In a worktree of hearth at `origin/main`, `heavy cargo nextest run
+4. In a worktree of hearth at `origin/main`, `cargo nextest run
    --workspace --profile conformance` passes once, its `Summary` naming
    at least the five `conformance_git` tests (hearth 41, 44 and 46 add
    theirs), within the 2-minute ceiling.

@@ -135,7 +135,7 @@ and `static_files_enter_the_cache_by_sha256_and_no_temporary_stays`
 holding its file's bytes, mode 0644).
 Proof: process, `hearth_render_prints_the_thin_repositorys_spec_through_real_git`:
 the two files reach the spec by their SHA-256, streamed through real
-git's `cat-file`. Run once: `heavy cargo nextest run -p hearth-builder-world
+git's `cat-file`. Run once: `cargo nextest run -p hearth-builder-world
 -E 'test(=hearth_render_prints_the_thin_repositorys_spec_through_real_git)'`.
 Bound 0.5 s.
 Don't: hold a static file's bytes beyond one piece; write its record or
@@ -208,7 +208,7 @@ empty, standard error 40.2's two JSON lines);
 file: its `hearth: cannot open the store …` line).
 Proof: process, `end_to_end_render`: the shipped binary, run in the work
 tree with no option, finds its repository and store by default and prints
-the thin repository's committed spec. Run once: `heavy cargo nextest run
+the thin repository's committed spec. Run once: `cargo nextest run
 -p hearth -E 'test(=end_to_end_render)'`. Bound 0.5 s.
 Don't: read any variable but `XDG_CACHE_HOME` and `HOME` (3.5); try a
 socket; print in the shell but a `startup` record, by `form::print`.
@@ -264,9 +264,9 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-32\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest
    run -p hearth-render-world -p hearth-builder-world -p hearth` passes,
-   its `Summary` naming at least 29 tests, and `heavy cargo nextest run
+   its `Summary` naming at least 29 tests, and `cargo nextest run
    -p hearth -E 'test(/^end_to_end_/)'` prints a `Summary` naming 1 test.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main
    crates/hearth-protocol-builder/src/translate/` lists `parts` and

@@ -175,7 +175,7 @@ fn cut_and_mutated_texts_compile_as_the_reference_compiles_them() {
 }
 ```
 Proof: world, the highest this crate reaches: nothing calls `compile`
-until hearth 43.2 and 15. `heavy cargo nextest run -p
+until hearth 43.2 and 15. `cargo nextest run -p
 hearth-template-world --profile fuzzy`, once, shows each generated
 literal and name compiling to the reference's operations, and each of
 05.1's refusals at the reference's offset. Bound: 2 s.
@@ -223,7 +223,7 @@ Test shape: in `src/tests/lookups.rs`, each under 20 ms:
 `a_word_after_a_dot_is_a_key` (`a.and`, `a.in`, `a.true`, `a.none`),
 `a_lookup_after_a_filter_is_refused_at_its_dot`.
 The generator gains these forms, and `EVERY_KIND` these kinds.
-Proof: world; nothing calls the crate yet (05.1). `heavy cargo nextest run
+Proof: world; nothing calls the crate yet (05.1). `cargo nextest run
 -p hearth-template-world --profile fuzzy`, once, shows these forms compiling as the reference compiles them, and each new
 refusal falling at its offset. Bound: 2 s.
 Don't: check a filter's input or the types of its arguments (hearth 43.1).
@@ -363,8 +363,8 @@ None.
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-05\.[1-2]'` prints 2.
 2. `git -C ~/src/rust/hearth ls-tree -d --name-only origin/main
    crates/hearth-protocol-template tests/template | wc -l` prints 2.
-3. In a worktree of hearth at `origin/main`, `heavy cargo nextest run -p
-   hearth-protocol-template -p hearth-template-world` and `heavy cargo
+3. In a worktree of hearth at `origin/main`, `cargo nextest run -p
+   hearth-protocol-template -p hearth-template-world` and `cargo
    nextest run -p hearth-template-world --profile fuzzy` each pass, once.
 4. `git -C ~/src/rust/hearth grep -n -i minijinja origin/main --
    crates/hearth-protocol-template tests/template` prints nothing.

@@ -62,7 +62,7 @@ hearth 11's thin story calls the machines. hearth 34 runs them on real git
 ## Rules that bind it
 
 - **hearth's first landings** (README; workflow.md, 1): 02.1 may be the
-  first crate (it lands with `land`); 02.2's `tests/git/tests/fuzzy_git.rs`,
+  first crate; 02.2's `tests/git/tests/fuzzy_git.rs`,
   if no fuzzy test is on `main`, replaces both profiles' filters with the
   two lines `.config/nextest.toml`'s comments give, and removes them.
 
@@ -230,7 +230,7 @@ s). Memory, a binary of its own (findings/skein-testing.md, 2), at `SMALL`
 `meter.check(step, bound, &case.what)`.
 Proof: world: `generated_blobs_arrive_whole_in_order_whatever_the_cuts`,
 each blob's bytes in order and whole, absent ones `Missing`; bound 0.5 s;
-and `heavy cargo nextest run -p hearth-git-world -E 'binary(memory)'` once,
+and `cargo nextest run -p hearth-git-world -E 'binary(memory)'` once,
 bound 1 s. No caller until hearth 11.
 Don't: write stdin (one stream below); hold a body whole; hash it (hearth
 11, on `skein_lib::sha256`); lower a limit to pass the memory test.

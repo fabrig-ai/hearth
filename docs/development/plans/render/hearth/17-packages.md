@@ -417,7 +417,7 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-17\.[1-5]'` prints 5.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest run --workspace` and `heavy cargo nextest run --workspace --profile fuzzy` pass.
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest run --workspace` and `cargo nextest run --workspace --profile fuzzy` pass.
 3. `git -C ~/src/rust/hearth ls-tree --name-only origin/main crates/hearth-domain-render/src/parts/ | grep -c -E '/(packages|boot)\.rs'` prints 2.
 4. `git -C ~/src/rust/hearth grep -c -E 'pub fn inputs\(|debian: _' origin/main -- crates/hearth-domain-render/src/parts/packages.rs crates/hearth-protocol-builder/src/translate/documents.rs` prints one `…packages.rs:1` line and no `documents.rs` line.
 5. `git -C ~/src/rust/hearth grep -n -E '\bVec\b|String::|[^:]: *String\b|-> *String\b|<String\b|&String\b|^\s*_ =>' origin/main -- crates/hearth-domain-render/src crates/hearth-protocol-builder/src/translate ':!*/tests/*' ':!*/tests.rs'` prints nothing (code-organization.md, 6).

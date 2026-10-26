@@ -136,7 +136,7 @@ End to end, under 0.5 s: `end_to_end_diff` (`MOTD` at two commits, the
 binary run with `XDG_CACHE_HOME` a scratch directory and `HOME`
 `repository.scratch().path()`, as `end_to_end.rs:11` runs it, `diff <from> <to>`) asserts stdout is
 `fixtures::MOTD_DIFF_TEXT`, the real loop's lines, and `Exit::Code(1)`.
-Proof: process, `heavy cargo nextest run -p hearth -E
+Proof: process, `cargo nextest run -p hearth -E
 'test(=end_to_end_diff)'`: the shipped binary finds its repository and store,
 diffs two commits, exits 1. Bound 0.5 s.
 Don't: sort, bound or count errors anew (hearth 22.1's collector does);
@@ -176,7 +176,7 @@ in the store by key so no mmdebstrap runs" (testing.md, 2.7):
 fixture repository at two requests, both records in the store first, keys
 literals; JSON; the later closure adds one package, drops one and moves one
 to another version).
-Proof: process, `heavy cargo nextest run -p hearth-builder-world -E
+Proof: process, `cargo nextest run -p hearth-builder-world -E
 'test(=two_recorded_resolutions_show_the_packages_a_change_moves)'`: the
 packages change lists what the later closure adds, removes and moves, rebuild
 `from packages`, known; bound 0.5 s. That `--resolve` resolves only the changed keys, of both
@@ -241,8 +241,8 @@ None.
 ## Done when
 
 1. `git -C ~/src/rust/hearth log origin/main --grep='^Plan: render$' --format='%(trailers:key=Step,valueonly)' | sort -u | grep -c -x -E 'hearth-45\.[1-2]'` prints 2.
-2. Once, in a worktree of hearth at `origin/main`: `heavy cargo nextest
+2. Once, in a worktree of hearth at `origin/main`: `cargo nextest
    run -p hearth-domain-render -p hearth-protocol-builder -p
-   hearth-client-protocol-records -p hearth-builder-world -p hearth` passes, and `heavy cargo nextest run
+   hearth-client-protocol-records -p hearth-builder-world -p hearth` passes, and `cargo nextest run
    -p hearth -E 'test(/^end_to_end_/)'` prints a `Summary` naming at
    least 2 tests, `end_to_end_diff` among them.

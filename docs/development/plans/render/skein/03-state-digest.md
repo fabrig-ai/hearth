@@ -67,10 +67,6 @@ with digests) is the first user downstream, and needs all four.
   testing/skein-fake-machine/src/fs.rs`: a match, it digests the field and
   adds a test that a pending move or a held lock changes the digest; none,
   skein 04.1 or 05.1 does the same once `fn state_digest` is there.
-- **The gate** (README, Rules; decisions.md, 1): `flock
-  ~/src/rust/tmp/hearth/render/land-skein.lock land --gate '<the README's
-  command, whole>'`, its commit body saying so in one line; no probe of
-  the machine.
 - **Test time** (README, Rules; decisions.md, 15): this session's
   allotment is 0.3 s of skein's focused suite (6.46 s) and 0.5 s of its
   fuzzy suite (41.84 s) (skein 02: 0.4 s / 1 s; 03: 0.3 s / 0.5 s; 04:
@@ -119,7 +115,7 @@ fn a_u16_digests_as_its_two_little_endian_bytes() {
     assert_eq!(state_digest(&0x0102_u16), printed, "a value hashed whole writes the same");
 }
 ```
-Proof: unit (lib has no world; 03.3 is the first user), `heavy cargo
+Proof: unit (lib has no world; 03.3 is the first user), `cargo
 nextest run -p skein-lib -E
 'test(=tests::digest::a_usize_digests_as_the_eight_bytes_of_its_u64)'`: a `usize`
 digests as `sha256sum` digests its 8 little-endian bytes. Bound: 0.02 s.
@@ -164,7 +160,7 @@ of 4: `from_durable(.., 1)`; `from_durable(.., 2)` otherwise);
 `crypto_rngs_with_other_keys_digest_alike_after_the_same_draws`;
 `a_request_table_s_digest_changes_with_each_request_asked` (and not with
 its limits).
-Proof: unit (lib has no world; 03.3 is the first user), `heavy cargo
+Proof: unit (lib has no world; 03.3 is the first user), `cargo
 nextest run -p skein-lib -E
 'test(=tests::digest::slabs_whose_slots_were_reused_in_one_order_digest_alike)'`: two
 slabs of different histories digest alike. Bound: 0.02 s.
@@ -227,7 +223,7 @@ fn an_outcome_gives_each_process_s_digest_and_the_machine_s() {
     assert_eq!(digests.machine, Some([7; 32]), "the machine's, as it gives it");
 }
 ```
-Proof: world, `heavy cargo nextest run -p skein-echo-world -E
+Proof: world, `cargo nextest run -p skein-echo-world -E
 'test(=a_seed_replays_to_the_same_echo_digest_at_its_end)'`
 (tests/echo's `scenarios.rs`): `assert_replays(11,
 12, ..)` over `closes(seed, Config::chaos())`, the trace each entry's
@@ -282,7 +278,7 @@ fn a_traced_digest_is_an_entry_at_the_present_time_under_its_pid() {
     assert_ne!(pid, Pid::MACHINE, "no process has the machine's pid");
 }
 ```
-Proof: world, `heavy cargo nextest run -p skein-echo-world -E
+Proof: world, `cargo nextest run -p skein-echo-world -E
 'test(=a_seed_replays_to_the_same_digests_after_every_iteration)'`
 (tests/echo's `scenarios.rs`): `clients(1,
 Config::calm())` under `digests(Digests::Traced)`, run twice: the traces
@@ -398,7 +394,7 @@ Each runs once, after 03.4 lands, reading `origin/main`.
    crates/skein-shell/src/drive.rs testing/skein-world/src/program.rs
    testing/skein-world/src/domain/trace.rs | grep -E '^-\s*(pub )?fn '`
    prints nothing.
-4. In a worktree of skein at `origin/main`: `heavy cargo nextest run -p
+4. In a worktree of skein at `origin/main`: `cargo nextest run -p
    skein-lib -p skein-world-tests -p skein-sim-tests -p skein-fake-machine
    -p skein-io-world -p skein-echo-world -E 'test(/digest/)'` passes, its
    `Summary` naming 31 more tests than the same command at `f981746`,

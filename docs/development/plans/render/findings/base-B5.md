@@ -8,10 +8,10 @@ Machine debian-8gb-hel1-1: git 2.47.3, systemd 257 (257.13), coreutils 9.7. Scra
 - the `git grep ... | wc -l` counts (12.3 `Decode(Decode)`, 42.3, 13.3 `Schema(Schema)`, 15.4, 16.4, 16.3 ls-tree grep -c): print 0; at ready. `-E` patterns of all (and `hearth-[0-9]+\.[1-5]`) parse (`grep -E <p> /dev/null` exit 1).
 - `git grep -n -i minijinja origin/main -- crates/hearth-domain-render tests/render/src` (14.3, 43.4, 15.5, 16.5): exit 1, prints nothing; as the plan says.
 - `git grep -n -E ', \.\. ?\}|\(\.\.\)' ... translate | wc -l` (13.4, 43.5, 16.6): prints 0; as the plan says.
-- `heavy cargo nextest run ...` of the Done whens and `binary(=memory)`, `binary(=fuzzy_schema)`, `binary(=fuzzy_entries)`: at ready (name crates and binaries that the sessions add).
+- `cargo nextest run ...` of the Done whens and `binary(=memory)`, `binary(=fuzzy_schema)`, `binary(=fuzzy_entries)`: at ready (name crates and binaries that the sessions add).
 
 ## 12
-- 12.1 sketch block + `a_later_layer_s_scalar_replaces_and_keeps_its_own_place`: `heavy cargo clippy -p scratch-s12 --all-targets -- -D warnings`: first exit 101 (2x must_use_candidate: translate `fault`, `error`); DEFECT, fixed (`#[must_use]`). Then exit 0.
+- 12.1 sketch block + `a_later_layer_s_scalar_replaces_and_keeps_its_own_place`: `cargo clippy -p scratch-s12 --all-targets -- -D warnings`: first exit 101 (2x must_use_candidate: translate `fault`, `error`); DEFECT, fixed (`#[must_use]`). Then exit 0.
 - 12.2 `a_broken_document_prints_its_error_after_...` in world crate (`-p scratch-w`, tests/s12.rs): exit 0.
 - Decode's 11 tokenizer variants checked against skein-json `tokenizer::Error` (tokenizer.rs:221): all match (TooLong, Stream left out).
 - BROKEN_LAB `1:14`/`1:2`, `{"a": 1, "a": 2}` `1:10`/`1:2`, `775324fc…` = sha256 of `Welcome to x1.\n`: python/sha256sum, as the plan says.
@@ -43,7 +43,7 @@ Machine debian-8gb-hel1-1: git 2.47.3, systemd 257 (257.13), coreutils 9.7. Scra
 ## Compile pass, planner-9 (2026-10-17)
 
 Blocks of 12 (3), 42 (2), 13 (3), 14 (4), 43 (4), 15 (2), 16 (3) compared with the scratch crates (B5-hearth), then
-`heavy cargo clippy --workspace --all-targets -- -D warnings`: exit 0 (8 crates: s12, s13, s14, s15, s16, s42, s43, w).
+`cargo clippy --workspace --all-targets -- -D warnings`: exit 0 (8 crates: s12, s13, s14, s15, s16, s42, s43, w).
 `scratch-s12` failed (101: `must_use_candidate` on translate `fault` and `error`): the block says `#[must_use]`;
 re-synced (both attributes, the test's assertion text, the `Kind` doc). s14 (six doc comments), s42 (`Members` doc),
 s43 (the tojson assertion text) re-synced; 13, 15, 16 as the blocks say (stubs differ only in module paths).
