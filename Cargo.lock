@@ -490,17 +490,17 @@ dependencies = [
 [[package]]
 name = "skein-fail-stop"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 
 [[package]]
 name = "skein-heap"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 
 [[package]]
 name = "skein-io"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 dependencies = [
  "skein-lib",
 ]
@@ -508,7 +508,7 @@ dependencies = [
 [[package]]
 name = "skein-json"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 dependencies = [
  "skein-lib",
 ]
@@ -516,17 +516,17 @@ dependencies = [
 [[package]]
 name = "skein-lib"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 
 [[package]]
 name = "skein-scratch"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 
 [[package]]
 name = "skein-shell"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 dependencies = [
  "io-uring",
  "libc",
@@ -537,7 +537,7 @@ dependencies = [
 [[package]]
 name = "skein-sim"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 dependencies = [
  "skein-io",
  "skein-lib",
@@ -546,7 +546,7 @@ dependencies = [
 [[package]]
 name = "skein-world"
 version = "0.0.0"
-source = "git+https://github.com/fabrig-dev/skein.git#575c83c1762a3850bde4bda5c162c90e20772ba9"
+source = "git+https://github.com/fabrig-dev/skein.git#17d85f3755289dab333786c1b5ac80ea940e56fc"
 dependencies = [
  "skein-heap",
  "skein-io",
