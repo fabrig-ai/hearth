@@ -1,45 +1,22 @@
 # Status
 
-Updated 2026-10-19. How far hearth's code is from its design.
+Updated 2026-10-26. How far hearth's code is from its design.
 
-## 1. Plans
-
-| Plan | State | Takes the design to | Where |
-|---|---|---|---|
-| render | done 2026-10-18 | M1, render (README.md, section 3): `protocol/format.md` but for checks and artifacts; `domain/render.md`; the client's `render` and `diff`, with `hearth-client-protocol-records`'s printer; `hearth-lib`; the store without layers; the builder's root, protocol layer and service; the fake machine's M1 parts and the fakes of git and mmdebstrap; with skein's part of M1 (skein's `STATUS.md`, "hearth's render") | `docs/development/plans/render/` |
-
-## 2. The design
-
-| Document | Built | Left |
+| Area | Built | Not yet |
 |---|---|---|
-| `README.md` | no | the crates of 4.2, each in the milestone it names, and skein's part of each (section 8.1): M1's, render; the rest not planned |
-| `protocol/format.md` | no | all; M1 builds it but for checks (section 11, M5) and artifacts (10.2, M6): render; checks and artifacts not planned |
-| `domain/render.md` | no | all, M1, with the client's `render` and `diff` (client/README.md, section 3): render |
-| `domain/store.md` | no | all, M2, but for peers (section 10, M6); M1 needs `hearth-lib`'s canonical encoding and `H` (3.1, 3.2), and a store without layers, its resolutions and cache files with their records, lock and scan (2.1, 2.4, 4.4, 6.1, 6.4 to 6.6, 6.8, 8.1, 8.2), in the first parts of `hearth-domain-store` and `hearth-protocol-tree`: M1's, render; M2's, by its owner (no plan): the layer record (6.2) and `hearth-protocol-accounts` (5.3) built; a layer's life in a plain-directory store over a fake tree helper: stage, seal, publish and discard (4.2, 7.3), with stand-in walk digests; the rest not yet |
-| `domain/build.md` | no | all, M2, with the tree helper, by its owner (no plan): `hearth build` from the client to the store, its keys (3.3) and plan (4.1), and the plan run through stage, steps, seal and discard (4.3), every step refused until its task; the rest not yet |
-| `domain/machine.md` | no | the command line's tokens (6.1) and the initramfs (section 7), booted by M2's boot test (domain/testing.md, 6.6): not planned; the EFI path and bootstrap, M3; the BIOS path, M3b; containers and pool hosts, M5: not planned |
-| `domain/slots.md` | no | all on EFI with a minimal bless and live changes, M3; trials through GRUB, M3b; containers and pool hosts, M5 (section 12): not planned |
-| `domain/activator.md` | no | the operations a slot needs, live changes included, M3; restarting a unit, data's snapshots and restores, a container's operations, M5; backups and disks as an effect, M6: not planned |
-| `domain/steward.md` | no | the steward and its builder, M3; from M1, the builder's domain hosted by the client (client/README.md, 3.5): M1's, render; the rest not planned |
-| `protocol/wire.md` | no | the faces and standalone mode (sections 2 and 4), M3; the wire (sections 5 and 9), M4; telemetry (section 7), M5; bytes by digest (section 8), M6: not planned |
-| `client/README.md` | no | `render` and `diff`, in-process, M1 (3.1 to 3.3, 3.5), on built-in defaults: render; `--proxy` with M2's build (3.5): not planned; the rest of the client and its world, M3; `retarget` and `hearth dev`, M3b: not planned |
-| `domain/operating.md` | no | all, M5, local snapshots and restores included; backups and faults, M6: not planned |
-| `domain/testing.md` | no | each milestone's tiers, fakes and the fake machine's growth (section 10), from M1: M1's, render; M2's, the boot test (6.6) included: not planned; the rest not planned |
-| `domain/development.md` | no | mutable machines, the capture and applying a working tree, M3; the Incus driver, M3b; clusters and containers in development, M5; VMs from the host's store, M6: not planned |
-| `domain/artifacts.md` | no | all, M6: not planned |
-| `domain/reproducible.md` | no | all, after M6 (README.md, section 3, "later"): not planned |
-
-## 3. Not planned
-
-- **M2 to M6, and reproducible builds** (README.md, section 3): each
-  waits for the milestone before it, and skein's part of it
-  (README.md, 8.1). M2's design is revised for its run (2026-10-19), and
-  skein's files for it are designed (skein's `STATUS.md`, "hearth's M2 files").
-- **The fake machine's generic half in skein** (domain/testing.md, 3.11; README.md,
-  8.2): waits for temper to build its machine.
-
-## 4. Drafts
-
-| Draft | About | Next |
-|---|---|---|
-| `draft/brainstorm.md` | the first discussion of hearth, which the design takes further | kept as its record; the design holds where the two differ (README.md, section 2) |
+| `README.md` | 4.2: render's libraries, builder root, protocol layer and service. | 8.1: remaining crates/support. |
+| `protocol/format.md` | Format. | 11: checks. 10.2: artifacts. |
+| `domain/render.md` | Render and client render/diff. | — |
+| `domain/store.md` | 3.1, 3.2: canonical encoding and H. 2.1, 2.4, 4.4, 6.1, 6.4 to 6.6, 6.8, 8.1, 8.2: layerless store/resolutions/cache/lock/scan. 6.2, 5.3: layer record/accounts. 4.2, 7.3: stage/seal/publish/discard, fake helper/digests. | Other layers/store; 10: peers. |
+| `domain/build.md` | 3.3, 4.1, 4.3: build keys/plan/stage/seal/discard; steps refused. | Steps and remaining build. |
+| `domain/machine.md` | None. | 6.1: tokens. 7: initramfs /boot; EFI/BIOS, containers/pool hosts. |
+| `domain/slots.md` | None. | EFI slots/bless/live changes/GRUB; 12: containers. |
+| `domain/activator.md` | None. | Slot/live operations, restarts, snapshots, containers/backups/disks. |
+| `domain/steward.md` | Builder domain in client (`client/README.md`, 3.5). | Steward; other detail unknown. |
+| `protocol/wire.md` | None. | 2, 4: faces/standalone. 5, 9: wire. 7: telemetry. 8: bytes by digest. |
+| `client/README.md` | 3.1 to 3.3, 3.5: in-process render/diff. | 3.5: proxy; remaining client/retarget/development. |
+| `domain/operating.md` | None. | All. |
+| `domain/testing.md` | 10: render/git/mmdebstrap fakes. | 6.6: boot test; other tiers. 3.11: shared fake machine. |
+| `domain/development.md` | None. | Mutable machines, capture/apply, Incus, clusters/containers and VMs. |
+| `domain/artifacts.md` | None. | All. |
+| `domain/reproducible.md` | None. | All. |

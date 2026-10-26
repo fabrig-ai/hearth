@@ -1,8 +1,7 @@
 # Agent guidance for hearth
 
 - **main moves only through agents' `land`,** which runs the gate,
-  `scripts/check.sh`, and pushes to `origin`'s `main`
-  (`docs/development/workflow.md`, section 1). Do not run the gate
+  `scripts/check.sh`, and pushes to `origin`'s `main`. Do not run the gate
   yourself before `land`. A change to Markdown files only lands with
   `land --docs`. Build and test through `heavy`, as agents'
   `roles/implementer.md` says.
@@ -10,8 +9,8 @@
   `tests/`) takes at most 30 seconds (15 seconds before the user's doubling
   of 10-22, provisional); the fuzzy suite (the worlds' `tests/fuzzy_*.rs`,
   randomized tests) at most 2 minutes (1 minute before the user's doubling
-  of 10-22, provisional). Keep new tests within these budgets: see the same
-  document. Every test runs as a regular user; conformance, real builds and
+  of 10-22, provisional). Keep new tests within these budgets. Every test
+  runs as a regular user; conformance, real builds and
   the VM tier are outside the gate (`domain/testing.md`, 2.8).
 - **hearth is the factory's build daemon** (temper's `factory.md`,
   section 7): it renders, builds and runs a machine's outputs. Read
