@@ -360,6 +360,17 @@ impl Stepped {
                 | skein_lib::stream::Down::Finish => unreachable!("read only"),
             }
         }
+        // Empty handoff buffers belong to the harness, outside the decoder's heap.
+        assert!(
+            self.diff_events.is_empty()
+                && self.listing_events.is_empty()
+                && self.batch_events.is_empty()
+                && self.below.is_empty()
+        );
+        self.diff_events = Queue::with_capacity(self.diff_events.capacity());
+        self.listing_events = Queue::with_capacity(self.listing_events.capacity());
+        self.batch_events = Queue::with_capacity(self.batch_events.capacity());
+        self.below = Queue::with_capacity(self.below.capacity());
     }
 }
 

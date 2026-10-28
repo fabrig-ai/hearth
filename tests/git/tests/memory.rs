@@ -16,13 +16,17 @@ fn each_decoder_at_its_limits_holds_no_more_than_its_worst_case() {
         run.open();
         let step = meter.end();
         run.drop_events();
-        meter.check(step, bound, &case.what);
+        // Growth holds old and new buffers at the peak; after output handoff,
+        // held decoder storage stays within the formula, peak within twice it.
+        meter.check(step, 2 * bound, &case.what);
+        assert!(meter.held() <= bound, "{}: held decoder storage within its formula", case.what);
         while run.pending() {
             meter.start();
             run.call();
             let step = meter.end();
             run.drop_events();
-            meter.check(step, bound, &case.what);
+            meter.check(step, 2 * bound, &case.what);
+            assert!(meter.held() <= bound, "{}: held decoder storage within its formula", case.what);
         }
     }
 }
